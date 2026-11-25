@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 90" width="200" height="90" role="img" aria-label="Resistor">
+  <title>Resistor</title>
+  <line x1="12" y1="38" x2="46" y2="38" stroke="#3A2A1A" stroke-width="9" stroke-linecap="round"/>
+  <line x1="12" y1="38" x2="46" y2="38" stroke="#B9C0C6" stroke-width="4" stroke-linecap="round"/>
+  <line x1="154" y1="38" x2="188" y2="38" stroke="#3A2A1A" stroke-width="9" stroke-linecap="round"/>
+  <line x1="154" y1="38" x2="188" y2="38" stroke="#B9C0C6" stroke-width="4" stroke-linecap="round"/>
+  <rect x="42" y="14" width="116" height="48" rx="24" fill="#EBC98F" stroke="#3A2A1A" stroke-width="4"/>
+  <rect x="56" y="19" width="88" height="8" rx="4" fill="#FFF1D2" opacity="0.85"/>
+  <rect id="band-1" x="60" y="15" width="10" height="46" fill="#7B4A22"/>
+  <rect id="band-2" x="80" y="15" width="10" height="46" fill="#222222"/>
+  <rect id="band-3" x="100" y="15" width="10" height="46" fill="#222222"/>
+  <rect id="band-4" x="134" y="15" width="10" height="46" fill="#D4A017"/>
+  <text id="value-text" x="100" y="84" text-anchor="middle" font-family="Fredoka, Nunito, sans-serif" font-size="17" font-weight="600" fill="#3A2A1A">10 Ω</text>
+  <g id="terminal-a" data-terminal="a">
+    <circle class="terminal-ring" cx="12" cy="38" r="16" fill="none" stroke="none"/>
+    <circle cx="12" cy="38" r="11" fill="#B9C0C6" stroke="#3A2A1A" stroke-width="3"/>
+    <circle cx="12" cy="38" r="3.5" fill="#3A2A1A"/>
+  </g>
+  <g id="terminal-b" data-terminal="b">
+    <circle class="terminal-ring" cx="188" cy="38" r="16" fill="none" stroke="none"/>
+    <circle cx="188" cy="38" r="11" fill="#B9C0C6" stroke="#3A2A1A" stroke-width="3"/>
+    <circle cx="188" cy="38" r="3.5" fill="#3A2A1A"/>
+  </g>
+</svg>

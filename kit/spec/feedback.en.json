@@ -1,0 +1,134 @@
+{
+  "_note": "Placeholders in {braces} are filled from RuleResult.params. Keys match RuleResult.feedbackKey. Hindi and Marathi files must have exactly the same keys.",
+  "OPEN_CIRCUIT.gap": {
+    "title": "The circuit is not complete",
+    "explain": "Current can only flow around a full loop, from the + of the supply back to its −. Somewhere in your circuit the loop is broken.",
+    "fix": "Follow the path with your eyes from the + terminal. Look for a missing wire or a loose end, then connect it.",
+    "owl": "thinking"
+  },
+  "OPEN_CIRCUIT.switch_open": {
+    "title": "The switch is open",
+    "explain": "An open switch leaves a gap in the circuit, so no current can flow.",
+    "fix": "Click the switch to close it.",
+    "owl": "thinking"
+  },
+  "SHORT_CIRCUIT": {
+    "title": "The supply is connected straight back to itself",
+    "explain": "A wire (or an ammeter) joins the + and − of the supply with nothing in between to hold the current back. This is a short circuit. In real life it can overheat wires and drain a battery in seconds.",
+    "fix": "Open the switch. Then check that the current has to pass through the resistor before it can get back to the supply.",
+    "owl": "thinking"
+  },
+  "AMMETER_PARALLEL": {
+    "title": "The ammeter is connected across a part",
+    "explain": "An ammeter measures the current flowing through a path, so it must sit in that path. Here it is side by side with another part (in parallel), so the current can skip around that part.",
+    "fix": "Take the ammeter out of the side connection and put it in the path itself, one after another with the resistor (in series).",
+    "owl": "thinking"
+  },
+  "AMMETER_NOT_IN_SERIES": {
+    "title": "The current does not pass through the ammeter",
+    "explain": "To read the current correctly, all of it must flow through the ammeter. Right now some or all of it goes another way.",
+    "fix": "Connect the ammeter in the main path, in line with the supply and the resistor.",
+    "owl": "thinking"
+  },
+  "VOLTMETER_SERIES": {
+    "title": "The voltmeter is in the main path",
+    "explain": "A voltmeter has a very large resistance. In the main path it blocks the current, and the circuit stops working.",
+    "fix": "Move the voltmeter so it connects across the part you want to measure, with one wire on each side.",
+    "owl": "thinking"
+  },
+  "VOLTMETER_WRONG_PLACE.single": {
+    "title": "The voltmeter is not across the resistor",
+    "explain": "A voltmeter shows the voltage between the two points it touches. To measure the resistor, it must touch both ends of the resistor.",
+    "fix": "Connect one voltmeter terminal to each end of the resistor.",
+    "owl": "thinking"
+  },
+  "VOLTMETER_WRONG_PLACE.combination": {
+    "title": "The voltmeter is not across both resistors",
+    "explain": "Here the voltmeter should measure the voltage across R1 and R2 together, so it must touch the two outer ends of the pair.",
+    "fix": "Connect one voltmeter terminal to each outer end of the R1 and R2 pair.",
+    "owl": "thinking"
+  },
+  "WRONG_POLARITY": {
+    "title": "A meter is connected the wrong way round",
+    "explain": "Meters have a + and a − terminal. Current should enter the + terminal and leave by the −. Here it is the other way round, so the needle tries to move backwards.",
+    "fix": "Swap the two wires on the marked meter so its red + terminal faces the + side of the supply.",
+    "owl": "thinking"
+  },
+  "MISSING_COMPONENT": {
+    "title": "A part is still missing",
+    "explain": "Before you can take a reading, these parts need to be on the bench: {types}.",
+    "fix": "Drag the missing part from the shelf onto the bench and connect it.",
+    "owl": "thinking"
+  },
+  "WRONG_TOPOLOGY.series": {
+    "title": "R1 and R2 are not in series",
+    "explain": "In series, the resistors are joined one after another, so the same current passes through both. Yours are connected in a different way.",
+    "fix": "Connect the second end of R1 to the first end of R2, then connect the two free ends into the rest of the circuit.",
+    "owl": "thinking"
+  },
+  "WRONG_TOPOLOGY.parallel": {
+    "title": "R1 and R2 are not in parallel",
+    "explain": "In parallel, both resistors are joined between the same two points, so the current splits between them.",
+    "fix": "Join the left ends of R1 and R2 together, and the right ends together, then connect those two points into the circuit.",
+    "owl": "thinking"
+  },
+  "MISSING_READING": {
+    "title": "You need more readings",
+    "explain": "This task needs {need} readings at different voltages. You have {have}.",
+    "fix": "Change the voltage on the supply, then press Record reading.",
+    "owl": "thinking"
+  },
+  "MISSING_ANSWER": {
+    "title": "Check your equivalent resistance first",
+    "explain": "You need a correct equivalent resistance before you can move on.",
+    "fix": "Work it out, type it in the box and press Check.",
+    "owl": "thinking"
+  },
+  "EQUIVALENT_R_WRONG.series": {
+    "title": "That answer is not quite right",
+    "explain": "Your answer is more than 2% away from the correct value for resistors in series.",
+    "fix": "For series, add the two resistances. Then try again.",
+    "owl": "thinking"
+  },
+  "EQUIVALENT_R_WRONG.parallel": {
+    "title": "That answer is not quite right",
+    "explain": "Your answer is more than 2% away from the correct value for resistors in parallel.",
+    "fix": "For parallel, use 1/R = 1/R1 + 1/R2. Then try again.",
+    "owl": "thinking"
+  },
+  "OK_CIRCUIT_COMPLETE": {
+    "title": "The circuit is complete",
+    "explain": "Current has a full loop to flow around.",
+    "owl": "happy"
+  },
+  "OK_AMMETER_SERIES": {
+    "title": "Correct: the ammeter is in series",
+    "explain": "All the current passes through it, so it can measure that current.",
+    "owl": "happy"
+  },
+  "OK_VOLTMETER_ACROSS": {
+    "title": "Correct: the voltmeter is across the right part",
+    "explain": "It touches both ends of the part, so it shows the voltage across it.",
+    "owl": "happy"
+  },
+  "OK_POLARITY": {
+    "title": "Correct: the meters are the right way round",
+    "explain": "Current enters the + terminals, so the needles move forwards.",
+    "owl": "happy"
+  },
+  "OK_TOPOLOGY.series": {
+    "title": "Correct: R1 and R2 are in series",
+    "explain": "They are joined one after another, so the same current passes through both.",
+    "owl": "happy"
+  },
+  "OK_TOPOLOGY.parallel": {
+    "title": "Correct: R1 and R2 are in parallel",
+    "explain": "They are joined between the same two points, so the current splits between them.",
+    "owl": "happy"
+  },
+  "OK_ANSWER": {
+    "title": "Correct answer",
+    "explain": "Your equivalent resistance matches the calculated value.",
+    "owl": "happy"
+  }
+}

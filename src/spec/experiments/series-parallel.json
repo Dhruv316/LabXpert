@@ -1,0 +1,115 @@
+{
+  "id": "series-parallel",
+  "titleKey": "exp.series-parallel.title",
+  "summaryKey": "exp.series-parallel.summary",
+  "supply": {
+    "min": 0,
+    "max": 12,
+    "step": 1,
+    "default": 0,
+    "unit": "V"
+  },
+  "resistorValues": [
+    5,
+    10,
+    15,
+    20,
+    30
+  ],
+  "meterRanges": {
+    "ammeter": 6,
+    "voltmeter": 15,
+    "decimals": 2
+  },
+  "shelf": [
+    {
+      "type": "supply",
+      "max": 1
+    },
+    {
+      "type": "switch",
+      "max": 1
+    },
+    {
+      "type": "resistor",
+      "max": 2,
+      "roles": [
+        "R1",
+        "R2"
+      ],
+      "defaultOhms": {
+        "R1": 10,
+        "R2": 20
+      }
+    },
+    {
+      "type": "ammeter",
+      "max": 1
+    },
+    {
+      "type": "voltmeter",
+      "max": 1
+    }
+  ],
+  "requiredComponents": {
+    "supply": 1,
+    "switch": 1,
+    "resistor": 2,
+    "ammeter": 1,
+    "voltmeter": 1
+  },
+  "activeRules": [
+    "OPEN_CIRCUIT",
+    "SHORT_CIRCUIT",
+    "AMMETER_PARALLEL",
+    "AMMETER_NOT_IN_SERIES",
+    "VOLTMETER_SERIES",
+    "VOLTMETER_WRONG_PLACE",
+    "WRONG_POLARITY",
+    "MISSING_COMPONENT",
+    "WRONG_TOPOLOGY",
+    "MISSING_READING",
+    "MISSING_ANSWER",
+    "EQUIVALENT_R_WRONG"
+  ],
+  "tasks": [
+    {
+      "id": "series",
+      "instructionKeys": [
+        "exp.series-parallel.series.step1",
+        "exp.series-parallel.series.step2",
+        "exp.series-parallel.series.step3",
+        "exp.series-parallel.series.step4",
+        "exp.series-parallel.series.step5"
+      ],
+      "requiredTopology": "series",
+      "targetResistorRoles": [
+        "R1",
+        "R2"
+      ],
+      "voltmeterTarget": "combination",
+      "minReadings": 3,
+      "distinctSupplyVoltages": true,
+      "requiresEquivalentAnswer": true
+    },
+    {
+      "id": "parallel",
+      "instructionKeys": [
+        "exp.series-parallel.parallel.step1",
+        "exp.series-parallel.parallel.step2",
+        "exp.series-parallel.parallel.step3",
+        "exp.series-parallel.parallel.step4",
+        "exp.series-parallel.parallel.step5"
+      ],
+      "requiredTopology": "parallel",
+      "targetResistorRoles": [
+        "R1",
+        "R2"
+      ],
+      "voltmeterTarget": "combination",
+      "minReadings": 3,
+      "distinctSupplyVoltages": true,
+      "requiresEquivalentAnswer": true
+    }
+  ]
+}

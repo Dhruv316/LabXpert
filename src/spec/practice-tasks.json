@@ -1,0 +1,865 @@
+{
+  "note": "forCodes empty + role extension = used when the learner has no unresolved errors. Completion types are defined in rules-spec.md §H.",
+  "tasks": [
+    {
+      "id": "practice-fix-open-circuit",
+      "role": "practice",
+      "kind": "bench",
+      "forCodes": [
+        "OPEN_CIRCUIT"
+      ],
+      "appliesToExperiments": [
+        "ohms-law",
+        "series-parallel"
+      ],
+      "benchExperimentId": "ohms-law",
+      "titleKey": "practiceTasks.practice-fix-open-circuit.title",
+      "goalKey": "practiceTasks.practice-fix-open-circuit.goal",
+      "prebuilt": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 0,
+            "x": 60,
+            "y": 400,
+            "locked": true
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": false,
+            "x": 60,
+            "y": 150,
+            "locked": true
+          },
+          {
+            "id": "R",
+            "type": "resistor",
+            "role": "R",
+            "ohms": 10,
+            "x": 560,
+            "y": 170,
+            "locked": true,
+            "valueLocked": true
+          },
+          {
+            "id": "A",
+            "type": "ammeter",
+            "x": 330,
+            "y": 90,
+            "locked": true
+          },
+          {
+            "id": "V",
+            "type": "voltmeter",
+            "x": 600,
+            "y": 360,
+            "locked": true
+          }
+        ],
+        "wires": [
+          {
+            "id": "w1",
+            "from": "S.pos",
+            "to": "SW.a"
+          },
+          {
+            "id": "w2",
+            "from": "SW.b",
+            "to": "A.pos"
+          },
+          {
+            "id": "w3",
+            "from": "A.neg",
+            "to": "R.a"
+          },
+          {
+            "id": "w4",
+            "from": "V.pos",
+            "to": "R.a"
+          },
+          {
+            "id": "w5",
+            "from": "V.neg",
+            "to": "R.b"
+          }
+        ]
+      },
+      "shelf": [],
+      "completion": {
+        "type": "reading_recorded",
+        "min": 1
+      }
+    },
+    {
+      "id": "practice-place-ammeter",
+      "role": "practice",
+      "kind": "bench",
+      "forCodes": [
+        "AMMETER_PARALLEL",
+        "AMMETER_NOT_IN_SERIES",
+        "SHORT_CIRCUIT"
+      ],
+      "appliesToExperiments": [
+        "ohms-law",
+        "series-parallel"
+      ],
+      "benchExperimentId": "ohms-law",
+      "titleKey": "practiceTasks.practice-place-ammeter.title",
+      "goalKey": "practiceTasks.practice-place-ammeter.goal",
+      "prebuilt": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 0,
+            "x": 60,
+            "y": 400,
+            "locked": true
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": false,
+            "x": 60,
+            "y": 150,
+            "locked": true
+          },
+          {
+            "id": "R",
+            "type": "resistor",
+            "role": "R",
+            "ohms": 10,
+            "x": 560,
+            "y": 170,
+            "locked": true,
+            "valueLocked": true
+          },
+          {
+            "id": "V",
+            "type": "voltmeter",
+            "x": 600,
+            "y": 360,
+            "locked": true
+          }
+        ],
+        "wires": [
+          {
+            "id": "w1",
+            "from": "S.pos",
+            "to": "SW.a"
+          },
+          {
+            "id": "w2",
+            "from": "SW.b",
+            "to": "R.a"
+          },
+          {
+            "id": "w3",
+            "from": "R.b",
+            "to": "S.neg"
+          },
+          {
+            "id": "w4",
+            "from": "V.pos",
+            "to": "R.a"
+          },
+          {
+            "id": "w5",
+            "from": "V.neg",
+            "to": "R.b"
+          }
+        ]
+      },
+      "shelf": [
+        {
+          "type": "ammeter",
+          "max": 1
+        }
+      ],
+      "completion": {
+        "type": "reading_recorded",
+        "min": 1
+      }
+    },
+    {
+      "id": "practice-place-voltmeter",
+      "role": "practice",
+      "kind": "bench",
+      "forCodes": [
+        "VOLTMETER_SERIES"
+      ],
+      "appliesToExperiments": [
+        "ohms-law",
+        "series-parallel"
+      ],
+      "benchExperimentId": "ohms-law",
+      "titleKey": "practiceTasks.practice-place-voltmeter.title",
+      "goalKey": "practiceTasks.practice-place-voltmeter.goal",
+      "prebuilt": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 0,
+            "x": 60,
+            "y": 400,
+            "locked": true
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": false,
+            "x": 60,
+            "y": 150,
+            "locked": true
+          },
+          {
+            "id": "R",
+            "type": "resistor",
+            "role": "R",
+            "ohms": 10,
+            "x": 560,
+            "y": 170,
+            "locked": true,
+            "valueLocked": true
+          },
+          {
+            "id": "A",
+            "type": "ammeter",
+            "x": 330,
+            "y": 90,
+            "locked": true
+          }
+        ],
+        "wires": [
+          {
+            "id": "w1",
+            "from": "S.pos",
+            "to": "SW.a"
+          },
+          {
+            "id": "w2",
+            "from": "SW.b",
+            "to": "A.pos"
+          },
+          {
+            "id": "w3",
+            "from": "A.neg",
+            "to": "R.a"
+          },
+          {
+            "id": "w4",
+            "from": "R.b",
+            "to": "S.neg"
+          }
+        ]
+      },
+      "shelf": [
+        {
+          "type": "voltmeter",
+          "max": 1
+        }
+      ],
+      "completion": {
+        "type": "reading_recorded",
+        "min": 1
+      }
+    },
+    {
+      "id": "practice-fix-voltmeter",
+      "role": "practice",
+      "kind": "bench",
+      "forCodes": [
+        "VOLTMETER_WRONG_PLACE"
+      ],
+      "appliesToExperiments": [
+        "ohms-law",
+        "series-parallel"
+      ],
+      "benchExperimentId": "ohms-law",
+      "titleKey": "practiceTasks.practice-fix-voltmeter.title",
+      "goalKey": "practiceTasks.practice-fix-voltmeter.goal",
+      "prebuilt": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 0,
+            "x": 60,
+            "y": 400,
+            "locked": true
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": false,
+            "x": 60,
+            "y": 150,
+            "locked": true
+          },
+          {
+            "id": "R",
+            "type": "resistor",
+            "role": "R",
+            "ohms": 20,
+            "x": 560,
+            "y": 170,
+            "locked": true,
+            "valueLocked": true
+          },
+          {
+            "id": "A",
+            "type": "ammeter",
+            "x": 330,
+            "y": 90,
+            "locked": true
+          },
+          {
+            "id": "V",
+            "type": "voltmeter",
+            "x": 600,
+            "y": 360,
+            "locked": true
+          }
+        ],
+        "wires": [
+          {
+            "id": "w1",
+            "from": "S.pos",
+            "to": "SW.a"
+          },
+          {
+            "id": "w2",
+            "from": "SW.b",
+            "to": "A.pos"
+          },
+          {
+            "id": "w3",
+            "from": "A.neg",
+            "to": "R.a"
+          },
+          {
+            "id": "w4",
+            "from": "R.b",
+            "to": "S.neg"
+          },
+          {
+            "id": "w5",
+            "from": "V.pos",
+            "to": "A.pos"
+          },
+          {
+            "id": "w6",
+            "from": "V.neg",
+            "to": "A.neg"
+          }
+        ]
+      },
+      "shelf": [],
+      "completion": {
+        "type": "reading_recorded",
+        "min": 1
+      }
+    },
+    {
+      "id": "practice-meter-polarity",
+      "role": "practice",
+      "kind": "bench",
+      "forCodes": [
+        "WRONG_POLARITY"
+      ],
+      "appliesToExperiments": [
+        "ohms-law",
+        "series-parallel"
+      ],
+      "benchExperimentId": "ohms-law",
+      "titleKey": "practiceTasks.practice-meter-polarity.title",
+      "goalKey": "practiceTasks.practice-meter-polarity.goal",
+      "prebuilt": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 0,
+            "x": 60,
+            "y": 400,
+            "locked": true
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": false,
+            "x": 60,
+            "y": 150,
+            "locked": true
+          },
+          {
+            "id": "R",
+            "type": "resistor",
+            "role": "R",
+            "ohms": 10,
+            "x": 560,
+            "y": 170,
+            "locked": true,
+            "valueLocked": true
+          },
+          {
+            "id": "A",
+            "type": "ammeter",
+            "x": 330,
+            "y": 90,
+            "locked": true
+          },
+          {
+            "id": "V",
+            "type": "voltmeter",
+            "x": 600,
+            "y": 360,
+            "locked": true
+          }
+        ],
+        "wires": [
+          {
+            "id": "w1",
+            "from": "S.pos",
+            "to": "SW.a"
+          },
+          {
+            "id": "w2",
+            "from": "SW.b",
+            "to": "A.neg"
+          },
+          {
+            "id": "w3",
+            "from": "A.pos",
+            "to": "R.a"
+          },
+          {
+            "id": "w4",
+            "from": "R.b",
+            "to": "S.neg"
+          },
+          {
+            "id": "w5",
+            "from": "V.pos",
+            "to": "R.b"
+          },
+          {
+            "id": "w6",
+            "from": "V.neg",
+            "to": "R.a"
+          }
+        ]
+      },
+      "shelf": [],
+      "completion": {
+        "type": "reading_recorded",
+        "min": 1
+      }
+    },
+    {
+      "id": "practice-three-readings",
+      "role": "practice",
+      "kind": "bench",
+      "forCodes": [
+        "MISSING_READING"
+      ],
+      "appliesToExperiments": [
+        "ohms-law",
+        "series-parallel"
+      ],
+      "benchExperimentId": "ohms-law",
+      "titleKey": "practiceTasks.practice-three-readings.title",
+      "goalKey": "practiceTasks.practice-three-readings.goal",
+      "prebuilt": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 0,
+            "x": 60,
+            "y": 400,
+            "locked": true
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": false,
+            "x": 60,
+            "y": 150,
+            "locked": true
+          },
+          {
+            "id": "R",
+            "type": "resistor",
+            "role": "R",
+            "ohms": 10,
+            "x": 560,
+            "y": 170,
+            "locked": true,
+            "valueLocked": true
+          },
+          {
+            "id": "A",
+            "type": "ammeter",
+            "x": 330,
+            "y": 90,
+            "locked": true
+          },
+          {
+            "id": "V",
+            "type": "voltmeter",
+            "x": 600,
+            "y": 360,
+            "locked": true
+          }
+        ],
+        "wires": [
+          {
+            "id": "w1",
+            "from": "S.pos",
+            "to": "SW.a"
+          },
+          {
+            "id": "w2",
+            "from": "SW.b",
+            "to": "A.pos"
+          },
+          {
+            "id": "w3",
+            "from": "A.neg",
+            "to": "R.a"
+          },
+          {
+            "id": "w4",
+            "from": "R.b",
+            "to": "S.neg"
+          },
+          {
+            "id": "w5",
+            "from": "V.pos",
+            "to": "R.a"
+          },
+          {
+            "id": "w6",
+            "from": "V.neg",
+            "to": "R.b"
+          }
+        ]
+      },
+      "shelf": [],
+      "completion": {
+        "type": "readings_at_voltages",
+        "voltages": [
+          2,
+          4,
+          6
+        ]
+      }
+    },
+    {
+      "id": "practice-gather-parts",
+      "role": "practice",
+      "kind": "bench",
+      "forCodes": [
+        "MISSING_COMPONENT"
+      ],
+      "appliesToExperiments": [
+        "ohms-law",
+        "series-parallel"
+      ],
+      "benchExperimentId": "ohms-law",
+      "titleKey": "practiceTasks.practice-gather-parts.title",
+      "goalKey": "practiceTasks.practice-gather-parts.goal",
+      "prebuilt": null,
+      "shelf": [
+        {
+          "type": "supply",
+          "max": 1
+        },
+        {
+          "type": "switch",
+          "max": 1
+        },
+        {
+          "type": "resistor",
+          "max": 1
+        },
+        {
+          "type": "ammeter",
+          "max": 1
+        },
+        {
+          "type": "voltmeter",
+          "max": 1
+        }
+      ],
+      "completion": {
+        "type": "reading_recorded",
+        "min": 1
+      }
+    },
+    {
+      "id": "practice-series-then-parallel",
+      "role": "practice",
+      "kind": "bench",
+      "forCodes": [
+        "WRONG_TOPOLOGY"
+      ],
+      "appliesToExperiments": [
+        "series-parallel"
+      ],
+      "benchExperimentId": "series-parallel",
+      "titleKey": "practiceTasks.practice-series-then-parallel.title",
+      "goalKey": "practiceTasks.practice-series-then-parallel.goal",
+      "prebuilt": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 0,
+            "x": 60,
+            "y": 420,
+            "locked": true
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": false,
+            "x": 60,
+            "y": 150,
+            "locked": true
+          },
+          {
+            "id": "R1",
+            "type": "resistor",
+            "role": "R1",
+            "ohms": 10,
+            "x": 560,
+            "y": 110,
+            "locked": true
+          },
+          {
+            "id": "R2",
+            "type": "resistor",
+            "role": "R2",
+            "ohms": 20,
+            "x": 560,
+            "y": 260,
+            "locked": true
+          },
+          {
+            "id": "A",
+            "type": "ammeter",
+            "x": 330,
+            "y": 90,
+            "locked": true
+          },
+          {
+            "id": "V",
+            "type": "voltmeter",
+            "x": 620,
+            "y": 400,
+            "locked": true
+          }
+        ],
+        "wires": []
+      },
+      "shelf": [],
+      "completion": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "clean_reading_with_topology",
+            "taskId": "series"
+          },
+          {
+            "type": "clean_reading_with_topology",
+            "taskId": "parallel"
+          }
+        ]
+      }
+    },
+    {
+      "id": "practice-equivalent-resistance",
+      "role": "practice",
+      "kind": "calculation",
+      "forCodes": [
+        "EQUIVALENT_R_WRONG",
+        "MISSING_ANSWER"
+      ],
+      "appliesToExperiments": [
+        "series-parallel"
+      ],
+      "benchExperimentId": "series-parallel",
+      "titleKey": "practiceTasks.practice-equivalent-resistance.title",
+      "goalKey": "practiceTasks.practice-equivalent-resistance.goal",
+      "prebuilt": null,
+      "shelf": [],
+      "completion": {
+        "type": "answers_correct",
+        "count": 3
+      },
+      "calcPairs": [
+        {
+          "topology": "series",
+          "r1": 15,
+          "r2": 30,
+          "answer": 45
+        },
+        {
+          "topology": "parallel",
+          "r1": 20,
+          "r2": 30,
+          "answer": 12
+        },
+        {
+          "topology": "parallel",
+          "r1": 10,
+          "r2": 15,
+          "answer": 6
+        }
+      ]
+    },
+    {
+      "id": "extension-ohms-law",
+      "role": "extension",
+      "kind": "bench",
+      "forCodes": [],
+      "appliesToExperiments": [
+        "ohms-law"
+      ],
+      "benchExperimentId": "ohms-law",
+      "titleKey": "practiceTasks.extension-ohms-law.title",
+      "goalKey": "practiceTasks.extension-ohms-law.goal",
+      "prebuilt": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 0,
+            "x": 60,
+            "y": 400,
+            "locked": true
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": false,
+            "x": 60,
+            "y": 150,
+            "locked": true
+          },
+          {
+            "id": "R",
+            "type": "resistor",
+            "role": "R",
+            "ohms": 30,
+            "x": 560,
+            "y": 170,
+            "locked": true,
+            "valueLocked": true
+          },
+          {
+            "id": "A",
+            "type": "ammeter",
+            "x": 330,
+            "y": 90,
+            "locked": true
+          },
+          {
+            "id": "V",
+            "type": "voltmeter",
+            "x": 600,
+            "y": 360,
+            "locked": true
+          }
+        ],
+        "wires": [
+          {
+            "id": "w1",
+            "from": "S.pos",
+            "to": "SW.a"
+          },
+          {
+            "id": "w2",
+            "from": "SW.b",
+            "to": "A.pos"
+          },
+          {
+            "id": "w3",
+            "from": "A.neg",
+            "to": "R.a"
+          },
+          {
+            "id": "w4",
+            "from": "R.b",
+            "to": "S.neg"
+          },
+          {
+            "id": "w5",
+            "from": "V.pos",
+            "to": "R.a"
+          },
+          {
+            "id": "w6",
+            "from": "V.neg",
+            "to": "R.b"
+          }
+        ]
+      },
+      "shelf": [],
+      "completion": {
+        "type": "readings_at_voltages",
+        "voltages": [
+          3,
+          6,
+          9,
+          12
+        ]
+      },
+      "forExperiment": "ohms-law"
+    },
+    {
+      "id": "extension-series-parallel",
+      "role": "extension",
+      "kind": "calculation",
+      "forCodes": [],
+      "appliesToExperiments": [
+        "series-parallel"
+      ],
+      "benchExperimentId": "series-parallel",
+      "titleKey": "practiceTasks.extension-series-parallel.title",
+      "goalKey": "practiceTasks.extension-series-parallel.goal",
+      "prebuilt": null,
+      "shelf": [],
+      "completion": {
+        "type": "answers_correct",
+        "count": 3
+      },
+      "forExperiment": "series-parallel",
+      "calcPairs": [
+        {
+          "topology": "series",
+          "r1": 5,
+          "r2": 20,
+          "answer": 25
+        },
+        {
+          "topology": "parallel",
+          "r1": 15,
+          "r2": 30,
+          "answer": 10
+        },
+        {
+          "topology": "parallel",
+          "r1": 30,
+          "r2": 30,
+          "answer": 15
+        }
+      ]
+    }
+  ]
+}

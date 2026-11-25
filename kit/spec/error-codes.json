@@ -1,0 +1,244 @@
+{
+  "note": "Machine-readable registry. Detection LOGIC lives only in spec/rules-spec.md. Never add, rename or remove a code without the user's approval.",
+  "errors": [
+    {
+      "code": "OPEN_CIRCUIT",
+      "severity": "error",
+      "stage": "state",
+      "checkpoints": [
+        "SWITCH_CLOSE",
+        "RECORD_READING"
+      ],
+      "blocks": "recording",
+      "feedbackKeys": [
+        "OPEN_CIRCUIT.gap",
+        "OPEN_CIRCUIT.switch_open"
+      ],
+      "specSection": "rules-spec.md §D Stage 2",
+      "summary": "No complete conducting loop from supply + to supply −, or a switch is open."
+    },
+    {
+      "code": "SHORT_CIRCUIT",
+      "severity": "error",
+      "stage": "state",
+      "checkpoints": [
+        "SWITCH_CLOSE",
+        "RECORD_READING"
+      ],
+      "blocks": "recording",
+      "feedbackKeys": [
+        "SHORT_CIRCUIT"
+      ],
+      "specSection": "rules-spec.md §D Stage 1b",
+      "summary": "A zero-resistance path joins supply + and − directly."
+    },
+    {
+      "code": "AMMETER_PARALLEL",
+      "severity": "error",
+      "stage": "state",
+      "checkpoints": [
+        "SWITCH_CLOSE",
+        "RECORD_READING"
+      ],
+      "blocks": "recording",
+      "feedbackKeys": [
+        "AMMETER_PARALLEL"
+      ],
+      "specSection": "rules-spec.md §D Stage 1a",
+      "summary": "Ammeter shares both raw nodes with a resistor or the supply (or both its terminals are on one node)."
+    },
+    {
+      "code": "AMMETER_NOT_IN_SERIES",
+      "severity": "error",
+      "stage": "state",
+      "checkpoints": [
+        "SWITCH_CLOSE",
+        "RECORD_READING"
+      ],
+      "blocks": "recording",
+      "feedbackKeys": [
+        "AMMETER_NOT_IN_SERIES"
+      ],
+      "specSection": "rules-spec.md §D Stage 3b",
+      "summary": "Ammeter current differs from the supply current (dangling, or in one branch)."
+    },
+    {
+      "code": "VOLTMETER_SERIES",
+      "severity": "error",
+      "stage": "state",
+      "checkpoints": [
+        "SWITCH_CLOSE",
+        "RECORD_READING"
+      ],
+      "blocks": "recording",
+      "feedbackKeys": [
+        "VOLTMETER_SERIES"
+      ],
+      "specSection": "rules-spec.md §D Stage 2",
+      "summary": "Loop would be complete if the voltmeter conducted, so the voltmeter is breaking the main path."
+    },
+    {
+      "code": "VOLTMETER_WRONG_PLACE",
+      "severity": "error",
+      "stage": "state",
+      "checkpoints": [
+        "SWITCH_CLOSE",
+        "RECORD_READING"
+      ],
+      "blocks": "recording",
+      "feedbackKeys": [
+        "VOLTMETER_WRONG_PLACE.single",
+        "VOLTMETER_WRONG_PLACE.combination"
+      ],
+      "specSection": "rules-spec.md §D Stage 3d",
+      "summary": "Voltmeter is not across the target (resistor, or the R1/R2 combination)."
+    },
+    {
+      "code": "WRONG_POLARITY",
+      "severity": "error",
+      "stage": "state",
+      "checkpoints": [
+        "SWITCH_CLOSE",
+        "RECORD_READING"
+      ],
+      "blocks": "recording",
+      "feedbackKeys": [
+        "WRONG_POLARITY"
+      ],
+      "specSection": "rules-spec.md §D Stage 3e",
+      "summary": "A meter's signed probe reading is negative.",
+      "params": {
+        "componentIds": "string[]"
+      }
+    },
+    {
+      "code": "MISSING_COMPONENT",
+      "severity": "error",
+      "stage": "state",
+      "checkpoints": [
+        "RECORD_READING",
+        "ANSWER_SUBMIT"
+      ],
+      "blocks": "recording",
+      "feedbackKeys": [
+        "MISSING_COMPONENT"
+      ],
+      "specSection": "rules-spec.md §D Stage 0",
+      "summary": "A required component type is not on the bench.",
+      "params": {
+        "types": "ComponentType[]"
+      }
+    },
+    {
+      "code": "WRONG_TOPOLOGY",
+      "severity": "error",
+      "stage": "state",
+      "checkpoints": [
+        "SWITCH_CLOSE",
+        "RECORD_READING"
+      ],
+      "blocks": "recording",
+      "feedbackKeys": [
+        "WRONG_TOPOLOGY.series",
+        "WRONG_TOPOLOGY.parallel"
+      ],
+      "specSection": "rules-spec.md §D Stage 3c",
+      "summary": "R1 and R2 are not arranged as the task requires.",
+      "params": {
+        "required": "series|parallel",
+        "found": "series|parallel|neither"
+      }
+    },
+    {
+      "code": "MISSING_READING",
+      "severity": "error",
+      "stage": "action",
+      "checkpoints": [
+        "FINISH"
+      ],
+      "blocks": "finish",
+      "feedbackKeys": [
+        "MISSING_READING"
+      ],
+      "specSection": "rules-spec.md §D Finish",
+      "summary": "Too few valid readings at distinct supply voltages.",
+      "params": {
+        "have": "number",
+        "need": "number"
+      }
+    },
+    {
+      "code": "MISSING_ANSWER",
+      "severity": "error",
+      "stage": "action",
+      "checkpoints": [
+        "FINISH"
+      ],
+      "blocks": "finish",
+      "feedbackKeys": [
+        "MISSING_ANSWER"
+      ],
+      "specSection": "rules-spec.md §D Finish",
+      "summary": "No correct equivalent-resistance answer recorded for the task."
+    },
+    {
+      "code": "EQUIVALENT_R_WRONG",
+      "severity": "error",
+      "stage": "action",
+      "checkpoints": [
+        "ANSWER_SUBMIT"
+      ],
+      "blocks": "answer",
+      "feedbackKeys": [
+        "EQUIVALENT_R_WRONG.series",
+        "EQUIVALENT_R_WRONG.parallel"
+      ],
+      "specSection": "rules-spec.md §D Answer",
+      "summary": "Typed equivalent resistance is more than 2% from the formula value."
+    }
+  ],
+  "ok": [
+    {
+      "code": "OK_CIRCUIT_COMPLETE",
+      "feedbackKeys": [
+        "OK_CIRCUIT_COMPLETE"
+      ]
+    },
+    {
+      "code": "OK_AMMETER_SERIES",
+      "feedbackKeys": [
+        "OK_AMMETER_SERIES"
+      ]
+    },
+    {
+      "code": "OK_VOLTMETER_ACROSS",
+      "feedbackKeys": [
+        "OK_VOLTMETER_ACROSS"
+      ]
+    },
+    {
+      "code": "OK_POLARITY",
+      "feedbackKeys": [
+        "OK_POLARITY"
+      ]
+    },
+    {
+      "code": "OK_TOPOLOGY",
+      "feedbackKeys": [
+        "OK_TOPOLOGY.series",
+        "OK_TOPOLOGY.parallel"
+      ]
+    },
+    {
+      "code": "OK_ANSWER",
+      "feedbackKeys": [
+        "OK_ANSWER"
+      ]
+    }
+  ],
+  "severityMeaning": {
+    "error": "Blocks the action at that checkpoint (see 'blocks'). Counted in the error profile.",
+    "warning": "Reserved. No code uses it in the prototype.",
+    "ok": "Positive confirmation. Never counted."
+  }
+}

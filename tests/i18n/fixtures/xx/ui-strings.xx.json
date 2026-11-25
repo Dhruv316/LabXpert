@@ -1,0 +1,258 @@
+{
+  "_note": "Test-only fake language: every English text with a marker in front. Never shipped.",
+  "app": {
+    "name": "«xx» LabXpert",
+    "tagline": "«xx» Your virtual physics lab",
+    "owlName": "«xx» Ollie"
+  },
+  "common": {
+    "back": "«xx» Back",
+    "cancel": "«xx» Cancel",
+    "close": "«xx» Close",
+    "logout": "«xx» Log out",
+    "online": "«xx» Online",
+    "offline": "«xx» Offline: your work is saved on this device",
+    "language": "«xx» Language",
+    "comingSoon": "«xx» Coming soon",
+    "reduceMotion": "«xx» Reduce motion",
+    "langEnglish": "«xx» English",
+    "langHindi": "«xx» हिन्दी",
+    "langMarathi": "«xx» मराठी"
+  },
+  "error": {
+    "title": "«xx» Oops, something got mixed up.",
+    "body": "«xx» Let’s go back to the start and try again.",
+    "backToStart": "«xx» Back to start",
+    "notFoundTitle": "«xx» I can’t find that page.",
+    "notFoundBody": "«xx» Let’s get you back to the experiments."
+  },
+  "storage": {
+    "title": "«xx» I can’t save your work here.",
+    "body": "«xx» This browser is blocking the storage LabXpert needs. Try a normal (not private) window or another browser, then reload."
+  },
+  "login": {
+    "title": "«xx» Welcome to the lab",
+    "owlGreeting": "«xx» Hi, I’m Ollie. Let’s run some experiments.",
+    "userId": "«xx» User ID",
+    "password": "«xx» Password",
+    "submit": "«xx» Start experimenting",
+    "needBoth": "«xx» Type a user ID and a password to continue.",
+    "note": "«xx» For now, any ID and password will work."
+  },
+  "picker": {
+    "title": "«xx» Choose an experiment",
+    "hello": "«xx» Hello, {name}",
+    "status": {
+      "not_started": "«xx» Not started",
+      "in_progress": "«xx» In progress",
+      "done": "«xx» Done"
+    },
+    "open": "«xx» Open experiment",
+    "progress": "«xx» My progress"
+  },
+  "bench": {
+    "shelfTitle": "«xx» Parts",
+    "shelfHint": "«xx» Drag a part onto the bench.",
+    "shelfFull": "«xx» All placed",
+    "benchHint": "«xx» Drag from one terminal to another to add a wire. You can also click one terminal, then another.",
+    "undo": "«xx» Undo",
+    "reset": "«xx» Clear bench",
+    "resetConfirmTitle": "«xx» Clear the bench?",
+    "resetConfirmBody": "«xx» All parts and wires will be removed. Your recorded readings stay.",
+    "resetConfirmYes": "«xx» Clear bench",
+    "resetConfirmNo": "«xx» Keep working",
+    "panelTitle": "«xx» Ollie’s tips",
+    "hidePanel": "«xx» Hide tips",
+    "showPanel": "«xx» Show tips",
+    "howToFix": "«xx» How to fix it",
+    "goodStuff": "«xx» Going well",
+    "alsoCheck": "«xx» Also check",
+    "mistakeWaiting": "«xx» A mistake is waiting",
+    "panelEmpty": "«xx» Build your circuit, then close the switch. I’ll check it for you.",
+    "switchClosed": "«xx» Switch closed",
+    "switchOpen": "«xx» Switch open",
+    "supplyVoltage": "«xx» Supply voltage",
+    "supplyDown": "«xx» Lower the voltage by 1 V",
+    "supplyUp": "«xx» Raise the voltage by 1 V",
+    "supplyValue": "«xx» {volts} V",
+    "supplyAnnounce": "«xx» Supply voltage {volts} V.",
+    "resistance": "«xx» Resistance",
+    "resistanceValue": "«xx» {ohms} Ω",
+    "resistanceAnnounce": "«xx» Resistance {ohms} Ω.",
+    "valueLocked": "«xx» This value is fixed for this task.",
+    "meterAmps": "«xx» {value} A",
+    "meterVolts": "«xx» {value} V",
+    "meterReading": "«xx» {meter}: {value}",
+    "deleteSelected": "«xx» Remove",
+    "readings": "«xx» Readings",
+    "record": "«xx» Record reading",
+    "recordedToast": "«xx» Reading recorded",
+    "recordNeedVoltage": "«xx» Set the supply above 0 V to record a reading.",
+    "colVoltage": "«xx» Voltage (V)",
+    "colCurrent": "«xx» Current (A)",
+    "colRatio": "«xx» Voltage ÷ current (Ω)",
+    "noReadings": "«xx» No readings yet. Close the switch and press Record reading.",
+    "graphTitle": "«xx» V–I graph",
+    "graphX": "«xx» Current (A)",
+    "graphY": "«xx» Voltage (V)",
+    "graphEmpty": "«xx» Your points will appear here.",
+    "finish": "«xx» Finish experiment",
+    "nextTask": "«xx» Next task",
+    "equivalentLabel": "«xx» Equivalent resistance (Ω)",
+    "check": "«xx» Check",
+    "answerNeedNumber": "«xx» Type a number first.",
+    "calculatedVsObserved": "«xx» Observed V ÷ I: {observed} Ω",
+    "taskProgress": "«xx» Task {current} of {total}",
+    "overload": "«xx» Overload. The supply is shorted, so no current is shown.",
+    "needsOpenSwitchHint": "«xx» Open the switch before changing wires.",
+    "terminalLabel": "«xx» {part}, {terminal} terminal",
+    "terminalPos": "«xx» positive",
+    "terminalNeg": "«xx» negative",
+    "terminalA": "«xx» left",
+    "terminalB": "«xx» right",
+    "wireLabel": "«xx» Wire from {from} to {to}",
+    "wireStarted": "«xx» Wire started at {terminal}. Choose another terminal, or press Escape to cancel.",
+    "wireConnected": "«xx» Wire connected: {from} to {to}.",
+    "wireCancelled": "«xx» Wire cancelled.",
+    "wireRemoved": "«xx» Wire removed.",
+    "wireDuplicate": "«xx» Those terminals are already joined by a wire.",
+    "wireSameTerminal": "«xx» A wire needs two different terminals."
+  },
+  "result": {
+    "title": "«xx» Experiment complete",
+    "wentWell": "«xx» What went well",
+    "mistakesTitle": "«xx» Mistakes to remember",
+    "noMistakes": "«xx» No mistakes this time. Nicely done.",
+    "practice": "«xx» Try a practice task",
+    "back": "«xx» Back to experiments",
+    "mistakeCount": "«xx» {count} time",
+    "mistakeCountPlural": "«xx» {count} times"
+  },
+  "practice": {
+    "bannerPicked": "«xx» Ollie picked this for you because of: {topic}.",
+    "bannerExtension": "«xx» You’re doing great, so here’s an extra challenge.",
+    "goalLabel": "«xx» Your goal",
+    "done": "«xx» Practice complete",
+    "doneClean": "«xx» Clean run. I’ve cleared that topic from your list.",
+    "doneNotClean": "«xx» Done, but the same mistake came up again. We’ll practise it once more.",
+    "calcPrompt": "«xx» Work out the equivalent resistance",
+    "calcAnswer": "«xx» Your answer (Ω)",
+    "calcCorrect": "«xx» Correct",
+    "calcWrong": "«xx» Not quite. Try again.",
+    "calcSeries": "«xx» Two resistors in series: {r1} Ω and {r2} Ω",
+    "calcParallel": "«xx» Two resistors in parallel: {r1} Ω and {r2} Ω",
+    "exit": "«xx» Leave practice",
+    "progress": "«xx» Progress: {have} of {need}"
+  },
+  "progress": {
+    "title": "«xx» My progress",
+    "experiments": "«xx» Experiments",
+    "topics": "«xx» Topics to practise",
+    "topicsEmpty": "«xx» Nothing to practise right now.",
+    "practiceDone": "«xx» Practice completed",
+    "practiceEmpty": "«xx» No practice completed yet.",
+    "startPractice": "«xx» Start practice",
+    "bestResultNone": "«xx» Best result: no mistakes",
+    "bestResultOne": "«xx» Best result: 1 kind of mistake",
+    "bestResultMany": "«xx» Best result: {count} kinds of mistakes",
+    "practiceClean": "«xx» Clean run",
+    "practiceNotClean": "«xx» Some mistakes came back"
+  },
+  "components": {
+    "supply": "«xx» DC supply",
+    "resistor": "«xx» resistor",
+    "ammeter": "«xx» ammeter",
+    "voltmeter": "«xx» voltmeter",
+    "switch": "«xx» switch"
+  },
+  "errorTopics": {
+    "OPEN_CIRCUIT": "«xx» complete circuits",
+    "SHORT_CIRCUIT": "«xx» short circuits",
+    "AMMETER_PARALLEL": "«xx» placing the ammeter",
+    "AMMETER_NOT_IN_SERIES": "«xx» placing the ammeter",
+    "VOLTMETER_SERIES": "«xx» placing the voltmeter",
+    "VOLTMETER_WRONG_PLACE": "«xx» placing the voltmeter",
+    "WRONG_POLARITY": "«xx» meter polarity",
+    "MISSING_COMPONENT": "«xx» setting up all the parts",
+    "WRONG_TOPOLOGY": "«xx» series and parallel",
+    "MISSING_READING": "«xx» taking enough readings",
+    "MISSING_ANSWER": "«xx» equivalent resistance",
+    "EQUIVALENT_R_WRONG": "«xx» equivalent resistance"
+  },
+  "exp": {
+    "ohms-law": {
+      "title": "«xx» Ohm’s Law",
+      "summary": "«xx» Find out how voltage and current are related in a resistor.",
+      "step1": "«xx» Place the DC supply, switch, resistor, ammeter and voltmeter on the bench.",
+      "step2": "«xx» Connect the parts in one loop so the ammeter is in series with the resistor.",
+      "step3": "«xx» Connect the voltmeter across the resistor.",
+      "step4": "«xx» Close the switch and set a voltage on the supply.",
+      "step5": "«xx» Press Record reading. Repeat at 5 different voltages.",
+      "step6": "«xx» Look at the V–I graph. What do you notice?"
+    },
+    "series-parallel": {
+      "title": "«xx» Series and parallel resistors",
+      "summary": "«xx» Build resistors in series and in parallel, then find their equivalent resistance.",
+      "series": {
+        "step1": "«xx» Place the supply, switch, R1, R2, ammeter and voltmeter on the bench.",
+        "step2": "«xx» Connect R1 and R2 one after the other (in series) with the ammeter measuring the total current.",
+        "step3": "«xx» Connect the voltmeter across R1 and R2 together.",
+        "step4": "«xx» Close the switch and record 3 readings at different voltages.",
+        "step5": "«xx» Work out the equivalent resistance, type it in and press Check."
+      },
+      "parallel": {
+        "step1": "«xx» Keep the same parts on the bench.",
+        "step2": "«xx» Rewire R1 and R2 side by side (in parallel) with the ammeter measuring the total current.",
+        "step3": "«xx» Connect the voltmeter across the R1 and R2 pair.",
+        "step4": "«xx» Close the switch and record 3 readings at different voltages.",
+        "step5": "«xx» Work out the equivalent resistance, type it in and press Check."
+      }
+    }
+  },
+  "practiceTasks": {
+    "practice-fix-open-circuit": {
+      "title": "«xx» Find the missing wire",
+      "goal": "«xx» One wire is missing. Add it, close the switch and record a reading."
+    },
+    "practice-place-ammeter": {
+      "title": "«xx» Put the ammeter in the path",
+      "goal": "«xx» Add the ammeter so it is in series with the resistor, then record a reading."
+    },
+    "practice-place-voltmeter": {
+      "title": "«xx» Put the voltmeter across the resistor",
+      "goal": "«xx» Add the voltmeter across the resistor, then record a reading."
+    },
+    "practice-fix-voltmeter": {
+      "title": "«xx» Move the voltmeter",
+      "goal": "«xx» The voltmeter is measuring the wrong part. Move it across the resistor and record a reading."
+    },
+    "practice-meter-polarity": {
+      "title": "«xx» Turn the meters the right way",
+      "goal": "«xx» Both meters are backwards. Fix the wires so the needles move forwards, then record a reading."
+    },
+    "practice-three-readings": {
+      "title": "«xx» Take three readings",
+      "goal": "«xx» Record readings at 2 V, 4 V and 6 V."
+    },
+    "practice-gather-parts": {
+      "title": "«xx» Build it from scratch",
+      "goal": "«xx» Place every part, wire the circuit and record a reading."
+    },
+    "practice-series-then-parallel": {
+      "title": "«xx» Series, then parallel",
+      "goal": "«xx» Wire R1 and R2 in series and record a reading. Then rewire them in parallel and record another."
+    },
+    "practice-equivalent-resistance": {
+      "title": "«xx» Equivalent resistance",
+      "goal": "«xx» Work out the equivalent resistance for three resistor pairs."
+    },
+    "extension-ohms-law": {
+      "title": "«xx» Bigger resistor",
+      "goal": "«xx» This circuit uses a 30 Ω resistor. Record readings at 3 V, 6 V, 9 V and 12 V."
+    },
+    "extension-series-parallel": {
+      "title": "«xx» New resistor pairs",
+      "goal": "«xx» Work out the equivalent resistance for three new pairs."
+    }
+  }
+}

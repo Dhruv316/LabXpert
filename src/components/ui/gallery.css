@@ -1,0 +1,44 @@
+/* Gallery only (dev check by eye). Forces states that need a real pointer or key, using
+   data-demo-state, and prints captions from data attributes so no text lives in the .tsx. */
+.gallery-group::before {
+  content: attr(data-group);
+  @apply mb-3 block font-heading text-2xl font-semibold text-ink;
+}
+
+.gallery-cell {
+  @apply flex flex-col items-start gap-2;
+}
+
+.gallery-cell::before {
+  content: attr(data-caption);
+  @apply font-body text-sm font-semibold text-ink-soft;
+}
+
+[data-demo-state='hover'] {
+  transform: translateY(-1px);
+}
+
+[data-demo-state='hover'][data-variant='quiet'],
+[data-demo-state='hover'][data-variant='icon'] {
+  background-color: theme('colors.teal.tint');
+}
+
+[data-demo-state='active'] {
+  transform: translateY(2px);
+}
+
+[data-demo-state='active'][data-variant='primary'],
+[data-demo-state='active'][data-variant='secondary'],
+[data-demo-state='active'][data-variant='chip'] {
+  box-shadow: theme('boxShadow.press');
+}
+
+[data-demo-state='focus'] {
+  outline: 3px solid theme('colors.teal.DEFAULT');
+  outline-offset: 2px;
+}
+
+input[data-demo-state='focus'] {
+  border-color: theme('colors.teal.deep');
+  outline-offset: 0;
+}

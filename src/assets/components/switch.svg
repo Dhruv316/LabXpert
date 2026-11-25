@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 108" width="200" height="108" role="img" aria-label="Switch">
+  <title>Switch</title>
+  <rect x="12" y="52" width="176" height="38" rx="12" fill="#C98B52" stroke="#3A2A1A" stroke-width="4"/>
+  <path d="M28 64h56M112 78h56" stroke="#A86B3A" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <g id="terminal-b" data-terminal="b">
+    <circle class="terminal-ring" cx="170" cy="70" r="16" fill="none" stroke="none"/>
+    <circle cx="170" cy="70" r="11" fill="#B9C0C6" stroke="#3A2A1A" stroke-width="3"/>
+    <circle cx="170" cy="70" r="3.5" fill="#3A2A1A"/>
+  </g>
+  <g id="blade" transform="rotate(0 30 70)">
+    <rect x="26" y="64" width="146" height="12" rx="6" fill="#B9C0C6" stroke="#3A2A1A" stroke-width="3"/>
+    <circle cx="140" cy="70" r="9" fill="#C0392B" stroke="#3A2A1A" stroke-width="3"/>
+  </g>
+  <g id="terminal-a" data-terminal="a">
+    <circle class="terminal-ring" cx="30" cy="70" r="16" fill="none" stroke="none"/>
+    <circle cx="30" cy="70" r="11" fill="#B9C0C6" stroke="#3A2A1A" stroke-width="3"/>
+    <circle cx="30" cy="70" r="3.5" fill="#3A2A1A"/>
+  </g>
+  <text x="100" y="104" text-anchor="middle" font-family="Nunito, sans-serif" font-size="13" font-weight="700" fill="#3A2A1A">Switch</text>
+</svg>

@@ -1,0 +1,178 @@
+{
+  "colors": {
+    "cream": "#FFF6E5",
+    "mat": "#FDEBC8",
+    "wood": "#C98B52",
+    "woodDark": "#A86B3A",
+    "woodLight": "#E2AE75",
+    "orange": "#F28C28",
+    "orangeDeep": "#B85C00",
+    "teal": "#1FA39B",
+    "tealDeep": "#0F7A74",
+    "tealTint": "#BFEDE8",
+    "plum": "#7A4FA3",
+    "ink": "#3A2A1A",
+    "inkSoft": "#6B5644",
+    "error": "#C0392B",
+    "errorTint": "#FBE3DF",
+    "ok": "#2E7D4F",
+    "okTint": "#DDF3E4",
+    "warn": "#E8A200",
+    "warnTint": "#FFE9B8",
+    "warnText": "#7A4A00",
+    "white": "#FFFFFF",
+    "metal": "#B9C0C6",
+    "terminalPos": "#C0392B",
+    "terminalNeg": "#2B2B2B"
+  },
+  "contrastChecked": {
+    "ink on cream": 12.82,
+    "inkSoft on cream": 6.44,
+    "ink on mat": 11.73,
+    "ink on orange": 5.61,
+    "white on tealDeep": 5.18,
+    "white on orangeDeep": 4.6,
+    "white on error": 5.44,
+    "white on ok": 5.05,
+    "warnText on warnTint": 6.27,
+    "tealDeep on cream": 4.82,
+    "error on cream": 5.07
+  },
+  "fonts": {
+    "heading": "Fredoka",
+    "body": "Nunito",
+    "headingWeights": [
+      500,
+      600
+    ],
+    "bodyWeights": [
+      400,
+      600,
+      700
+    ],
+    "npm": [
+      "@fontsource/fredoka",
+      "@fontsource/nunito"
+    ]
+  },
+  "typeScale": {
+    "display": {
+      "size": 40,
+      "line": 48,
+      "font": "heading",
+      "weight": 600
+    },
+    "h1": {
+      "size": 32,
+      "line": 40,
+      "font": "heading",
+      "weight": 600
+    },
+    "h2": {
+      "size": 24,
+      "line": 32,
+      "font": "heading",
+      "weight": 600
+    },
+    "h3": {
+      "size": 20,
+      "line": 28,
+      "font": "heading",
+      "weight": 500
+    },
+    "body": {
+      "size": 16,
+      "line": 26,
+      "font": "body",
+      "weight": 400
+    },
+    "bodyStrong": {
+      "size": 16,
+      "line": 26,
+      "font": "body",
+      "weight": 700
+    },
+    "small": {
+      "size": 14,
+      "line": 20,
+      "font": "body",
+      "weight": 600
+    },
+    "meterDigits": {
+      "size": 22,
+      "line": 28,
+      "font": "heading",
+      "weight": 600
+    }
+  },
+  "spacing": [
+    4,
+    8,
+    12,
+    16,
+    24,
+    32,
+    48,
+    64
+  ],
+  "radius": {
+    "small": 8,
+    "control": 14,
+    "card": 20,
+    "panel": 24,
+    "pill": 999
+  },
+  "shadow": {
+    "lift": "0 2px 0 #A86B3A, 0 8px 16px rgba(58,42,26,0.18)",
+    "press": "0 1px 0 #A86B3A, 0 3px 6px rgba(58,42,26,0.2)",
+    "component": "drop-shadow(0 6px 6px rgba(58,42,26,0.25))",
+    "panel": "0 10px 30px rgba(58,42,26,0.15)"
+  },
+  "motion": {
+    "fast": 120,
+    "base": 220,
+    "needle": 320,
+    "flowDotsPxPerSec": 60,
+    "easing": "cubic-bezier(0.34, 1.3, 0.64, 1)",
+    "reducedMotion": "disable flow dots, needle jumps instantly, no bounce"
+  },
+  "layout": {
+    "minViewport": [
+      1024,
+      640
+    ],
+    "targetViewport": [
+      1366,
+      768
+    ],
+    "topBarHeight": 64,
+    "shelfWidth": 200,
+    "panelWidth": 360,
+    "panelCollapsedWidth": 56,
+    "bottomDockHeight": 220,
+    "bench": {
+      "width": 1100,
+      "height": 620
+    }
+  },
+  "bench": {
+    "matDotSpacing": 24,
+    "matDotOpacity": 0.18,
+    "frameWidth": 6,
+    "tableStripHeight": 28
+  },
+  "wire": {
+    "outlineWidth": 9,
+    "fillWidth": 5,
+    "outline": "#3A2A1A",
+    "fill": "#1FA39B",
+    "sag": 0.18,
+    "selectedFill": "#F28C28",
+    "errorFill": "#C0392B"
+  },
+  "terminal": {
+    "radius": 11,
+    "hitRadius": 16,
+    "snapRadius": 24
+  }
+}

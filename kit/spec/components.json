@@ -1,0 +1,183 @@
+{
+  "bench": {
+    "width": 1100,
+    "height": 620,
+    "snapRadius": 24,
+    "note": "Logical design units. Scale the SVG workspace with viewBox; never change these numbers per screen size."
+  },
+  "components": {
+    "supply": {
+      "svg": "assets/components/supply.svg",
+      "width": 200,
+      "height": 132,
+      "label": "DC supply",
+      "terminals": {
+        "pos": {
+          "x": 150,
+          "y": 114,
+          "role": "positive",
+          "label": "+"
+        },
+        "neg": {
+          "x": 50,
+          "y": 114,
+          "role": "negative",
+          "label": "−"
+        }
+      },
+      "dynamicElements": {
+        "display-text": "text, show voltage like '6 V'",
+        "knob-indicator": "rotate between -135deg (0 V) and +135deg (max V)",
+        "overload-light": "fill #7A2A22 off, #FF5A4A on (short circuit)"
+      },
+      "props": [
+        "voltage"
+      ]
+    },
+    "resistor": {
+      "svg": "assets/components/resistor.svg",
+      "width": 200,
+      "height": 90,
+      "label": "Resistor",
+      "terminals": {
+        "a": {
+          "x": 12,
+          "y": 38,
+          "role": "none"
+        },
+        "b": {
+          "x": 188,
+          "y": 38,
+          "role": "none"
+        }
+      },
+      "dynamicElements": {
+        "band-1": "colour band 1",
+        "band-2": "colour band 2",
+        "band-3": "colour band 3 (multiplier)",
+        "band-4": "gold tolerance, fixed",
+        "value-text": "e.g. '10 Ω'"
+      },
+      "props": [
+        "ohms",
+        "role"
+      ],
+      "colourCode": {
+        "5": [
+          "#2E9E5B",
+          "#222222",
+          "#D4A017"
+        ],
+        "10": [
+          "#7B4A22",
+          "#222222",
+          "#222222"
+        ],
+        "15": [
+          "#7B4A22",
+          "#2E9E5B",
+          "#222222"
+        ],
+        "20": [
+          "#D64545",
+          "#222222",
+          "#222222"
+        ],
+        "30": [
+          "#F28C28",
+          "#222222",
+          "#222222"
+        ],
+        "note": "[band-1, band-2, band-3]; band-4 is always #D4A017. 5 ohm = green, black, gold (x0.1)."
+      }
+    },
+    "ammeter": {
+      "svg": "assets/components/ammeter.svg",
+      "width": 160,
+      "height": 150,
+      "label": "Ammeter",
+      "terminals": {
+        "pos": {
+          "x": 40,
+          "y": 134,
+          "role": "positive",
+          "label": "+"
+        },
+        "neg": {
+          "x": 120,
+          "y": 134,
+          "role": "negative",
+          "label": "−"
+        }
+      },
+      "dynamicElements": {
+        "needle": "rotate(angle 80 92); -60deg = zero, +60deg = full scale; clamp to [-75, +60]; negative reading deflects below -60"
+      },
+      "needleAngleFormula": "angle = -60 + 120 * (reading / range), clamped to [-75, 60]",
+      "props": []
+    },
+    "voltmeter": {
+      "svg": "assets/components/voltmeter.svg",
+      "width": 160,
+      "height": 150,
+      "label": "Voltmeter",
+      "terminals": {
+        "pos": {
+          "x": 40,
+          "y": 134,
+          "role": "positive",
+          "label": "+"
+        },
+        "neg": {
+          "x": 120,
+          "y": 134,
+          "role": "negative",
+          "label": "−"
+        }
+      },
+      "dynamicElements": {
+        "needle": "same as ammeter"
+      },
+      "needleAngleFormula": "angle = -60 + 120 * (reading / range), clamped to [-75, 60]",
+      "props": []
+    },
+    "switch": {
+      "svg": "assets/components/switch.svg",
+      "width": 200,
+      "height": 108,
+      "label": "Switch",
+      "terminals": {
+        "a": {
+          "x": 30,
+          "y": 70,
+          "role": "none"
+        },
+        "b": {
+          "x": 170,
+          "y": 70,
+          "role": "none"
+        }
+      },
+      "dynamicElements": {
+        "blade": "transform rotate(0 30 70) when closed, rotate(-25 30 70) when open"
+      },
+      "props": [
+        "closed"
+      ]
+    }
+  },
+  "owl": {
+    "name": "Ollie",
+    "viewBox": "-14 -4 148 128",
+    "files": {
+      "happy": "assets/owl/owl-happy.svg",
+      "thinking": "assets/owl/owl-thinking.svg",
+      "celebrating": "assets/owl/owl-celebrating.svg"
+    },
+    "moodUse": {
+      "happy": "greetings, instructions, positive confirmations",
+      "thinking": "explaining a mistake",
+      "celebrating": "result screen, practice completed"
+    }
+  }
+}

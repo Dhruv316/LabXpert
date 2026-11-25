@@ -1,0 +1,1836 @@
+{
+  "format": "see _format.md",
+  "cases": [
+    {
+      "id": "SP-01",
+      "experiment": "series-parallel",
+      "task": "series",
+      "description": "Correct series circuit.",
+      "checkpoint": "RECORD_READING",
+      "circuit": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 6
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": true
+          },
+          {
+            "id": "R1",
+            "type": "resistor",
+            "role": "R1",
+            "ohms": 10
+          },
+          {
+            "id": "R2",
+            "type": "resistor",
+            "role": "R2",
+            "ohms": 20
+          },
+          {
+            "id": "A",
+            "type": "ammeter"
+          },
+          {
+            "id": "V",
+            "type": "voltmeter"
+          }
+        ],
+        "wires": [
+          [
+            "S.pos",
+            "SW.a"
+          ],
+          [
+            "SW.b",
+            "A.pos"
+          ],
+          [
+            "A.neg",
+            "R1.a"
+          ],
+          [
+            "R1.b",
+            "R2.a"
+          ],
+          [
+            "R2.b",
+            "S.neg"
+          ],
+          [
+            "V.pos",
+            "R1.a"
+          ],
+          [
+            "V.neg",
+            "R2.b"
+          ]
+        ]
+      },
+      "history": {
+        "readings": [],
+        "answers": []
+      },
+      "expect": {
+        "errors": [],
+        "ok": [
+          "OK_CIRCUIT_COMPLETE",
+          "OK_AMMETER_SERIES",
+          "OK_VOLTMETER_ACROSS",
+          "OK_POLARITY",
+          "OK_TOPOLOGY.series"
+        ],
+        "overload": false,
+        "readings": {
+          "ammeter": 0.2,
+          "voltmeter": 6.0
+        }
+      }
+    },
+    {
+      "id": "SP-02",
+      "experiment": "series-parallel",
+      "task": "parallel",
+      "description": "Correct parallel circuit.",
+      "checkpoint": "RECORD_READING",
+      "circuit": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 6
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": true
+          },
+          {
+            "id": "R1",
+            "type": "resistor",
+            "role": "R1",
+            "ohms": 10
+          },
+          {
+            "id": "R2",
+            "type": "resistor",
+            "role": "R2",
+            "ohms": 20
+          },
+          {
+            "id": "A",
+            "type": "ammeter"
+          },
+          {
+            "id": "V",
+            "type": "voltmeter"
+          }
+        ],
+        "wires": [
+          [
+            "S.pos",
+            "SW.a"
+          ],
+          [
+            "SW.b",
+            "A.pos"
+          ],
+          [
+            "A.neg",
+            "R1.a"
+          ],
+          [
+            "R1.a",
+            "R2.a"
+          ],
+          [
+            "R1.b",
+            "R2.b"
+          ],
+          [
+            "R2.b",
+            "S.neg"
+          ],
+          [
+            "V.pos",
+            "R1.a"
+          ],
+          [
+            "V.neg",
+            "R1.b"
+          ]
+        ]
+      },
+      "history": {
+        "readings": [],
+        "answers": []
+      },
+      "expect": {
+        "errors": [],
+        "ok": [
+          "OK_CIRCUIT_COMPLETE",
+          "OK_AMMETER_SERIES",
+          "OK_VOLTMETER_ACROSS",
+          "OK_POLARITY",
+          "OK_TOPOLOGY.parallel"
+        ],
+        "overload": false,
+        "readings": {
+          "ammeter": 0.9,
+          "voltmeter": 6.0
+        }
+      }
+    },
+    {
+      "id": "SP-03",
+      "experiment": "series-parallel",
+      "task": "series",
+      "description": "Parallel built for a series task.",
+      "checkpoint": "RECORD_READING",
+      "circuit": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 6
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": true
+          },
+          {
+            "id": "R1",
+            "type": "resistor",
+            "role": "R1",
+            "ohms": 10
+          },
+          {
+            "id": "R2",
+            "type": "resistor",
+            "role": "R2",
+            "ohms": 20
+          },
+          {
+            "id": "A",
+            "type": "ammeter"
+          },
+          {
+            "id": "V",
+            "type": "voltmeter"
+          }
+        ],
+        "wires": [
+          [
+            "S.pos",
+            "SW.a"
+          ],
+          [
+            "SW.b",
+            "A.pos"
+          ],
+          [
+            "A.neg",
+            "R1.a"
+          ],
+          [
+            "R1.a",
+            "R2.a"
+          ],
+          [
+            "R1.b",
+            "R2.b"
+          ],
+          [
+            "R2.b",
+            "S.neg"
+          ],
+          [
+            "V.pos",
+            "R1.a"
+          ],
+          [
+            "V.neg",
+            "R1.b"
+          ]
+        ]
+      },
+      "history": {
+        "readings": [],
+        "answers": []
+      },
+      "expect": {
+        "errors": [
+          "WRONG_TOPOLOGY.series"
+        ],
+        "ok": [
+          "OK_CIRCUIT_COMPLETE",
+          "OK_AMMETER_SERIES",
+          "OK_VOLTMETER_ACROSS",
+          "OK_POLARITY"
+        ]
+      }
+    },
+    {
+      "id": "SP-04",
+      "experiment": "series-parallel",
+      "task": "parallel",
+      "description": "Series built for a parallel task.",
+      "checkpoint": "RECORD_READING",
+      "circuit": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 6
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": true
+          },
+          {
+            "id": "R1",
+            "type": "resistor",
+            "role": "R1",
+            "ohms": 10
+          },
+          {
+            "id": "R2",
+            "type": "resistor",
+            "role": "R2",
+            "ohms": 20
+          },
+          {
+            "id": "A",
+            "type": "ammeter"
+          },
+          {
+            "id": "V",
+            "type": "voltmeter"
+          }
+        ],
+        "wires": [
+          [
+            "S.pos",
+            "SW.a"
+          ],
+          [
+            "SW.b",
+            "A.pos"
+          ],
+          [
+            "A.neg",
+            "R1.a"
+          ],
+          [
+            "R1.b",
+            "R2.a"
+          ],
+          [
+            "R2.b",
+            "S.neg"
+          ],
+          [
+            "V.pos",
+            "R1.a"
+          ],
+          [
+            "V.neg",
+            "R2.b"
+          ]
+        ]
+      },
+      "history": {
+        "readings": [],
+        "answers": []
+      },
+      "expect": {
+        "errors": [
+          "WRONG_TOPOLOGY.parallel"
+        ],
+        "ok": [
+          "OK_CIRCUIT_COMPLETE",
+          "OK_AMMETER_SERIES",
+          "OK_VOLTMETER_ACROSS",
+          "OK_POLARITY"
+        ]
+      }
+    },
+    {
+      "id": "SP-05",
+      "experiment": "series-parallel",
+      "task": "series",
+      "description": "Voltmeter across R1 only (junction).",
+      "checkpoint": "RECORD_READING",
+      "circuit": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 6
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": true
+          },
+          {
+            "id": "R1",
+            "type": "resistor",
+            "role": "R1",
+            "ohms": 10
+          },
+          {
+            "id": "R2",
+            "type": "resistor",
+            "role": "R2",
+            "ohms": 20
+          },
+          {
+            "id": "A",
+            "type": "ammeter"
+          },
+          {
+            "id": "V",
+            "type": "voltmeter"
+          }
+        ],
+        "wires": [
+          [
+            "S.pos",
+            "SW.a"
+          ],
+          [
+            "SW.b",
+            "A.pos"
+          ],
+          [
+            "A.neg",
+            "R1.a"
+          ],
+          [
+            "R1.b",
+            "R2.a"
+          ],
+          [
+            "R2.b",
+            "S.neg"
+          ],
+          [
+            "V.pos",
+            "R1.a"
+          ],
+          [
+            "V.neg",
+            "R1.b"
+          ]
+        ]
+      },
+      "history": {
+        "readings": [],
+        "answers": []
+      },
+      "expect": {
+        "errors": [
+          "VOLTMETER_WRONG_PLACE.combination"
+        ],
+        "ok": [
+          "OK_CIRCUIT_COMPLETE",
+          "OK_AMMETER_SERIES",
+          "OK_POLARITY",
+          "OK_TOPOLOGY.series"
+        ]
+      }
+    },
+    {
+      "id": "SP-06",
+      "experiment": "series-parallel",
+      "task": "parallel",
+      "description": "Ammeter placed in one branch only, so it reads branch current.",
+      "checkpoint": "RECORD_READING",
+      "circuit": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 6
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": true
+          },
+          {
+            "id": "R1",
+            "type": "resistor",
+            "role": "R1",
+            "ohms": 10
+          },
+          {
+            "id": "R2",
+            "type": "resistor",
+            "role": "R2",
+            "ohms": 20
+          },
+          {
+            "id": "A",
+            "type": "ammeter"
+          },
+          {
+            "id": "V",
+            "type": "voltmeter"
+          }
+        ],
+        "wires": [
+          [
+            "S.pos",
+            "SW.a"
+          ],
+          [
+            "SW.b",
+            "R1.a"
+          ],
+          [
+            "SW.b",
+            "R2.a"
+          ],
+          [
+            "R1.b",
+            "A.pos"
+          ],
+          [
+            "A.neg",
+            "S.neg"
+          ],
+          [
+            "R2.b",
+            "S.neg"
+          ],
+          [
+            "V.pos",
+            "SW.b"
+          ],
+          [
+            "V.neg",
+            "S.neg"
+          ]
+        ]
+      },
+      "history": {
+        "readings": [],
+        "answers": []
+      },
+      "expect": {
+        "errors": [
+          "AMMETER_NOT_IN_SERIES"
+        ],
+        "ok": [
+          "OK_CIRCUIT_COMPLETE",
+          "OK_VOLTMETER_ACROSS",
+          "OK_POLARITY",
+          "OK_TOPOLOGY.parallel"
+        ]
+      }
+    },
+    {
+      "id": "SP-07",
+      "experiment": "series-parallel",
+      "task": "series",
+      "description": "R2 is on the bench but not wired.",
+      "checkpoint": "RECORD_READING",
+      "circuit": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 6
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": true
+          },
+          {
+            "id": "R1",
+            "type": "resistor",
+            "role": "R1",
+            "ohms": 10
+          },
+          {
+            "id": "R2",
+            "type": "resistor",
+            "role": "R2",
+            "ohms": 20
+          },
+          {
+            "id": "A",
+            "type": "ammeter"
+          },
+          {
+            "id": "V",
+            "type": "voltmeter"
+          }
+        ],
+        "wires": [
+          [
+            "S.pos",
+            "SW.a"
+          ],
+          [
+            "SW.b",
+            "A.pos"
+          ],
+          [
+            "A.neg",
+            "R1.a"
+          ],
+          [
+            "R1.b",
+            "S.neg"
+          ],
+          [
+            "V.pos",
+            "R1.a"
+          ],
+          [
+            "V.neg",
+            "R1.b"
+          ]
+        ]
+      },
+      "history": {
+        "readings": [],
+        "answers": []
+      },
+      "expect": {
+        "errors": [
+          "WRONG_TOPOLOGY.series"
+        ],
+        "ok": [
+          "OK_CIRCUIT_COMPLETE",
+          "OK_AMMETER_SERIES",
+          "OK_POLARITY"
+        ]
+      }
+    },
+    {
+      "id": "SP-08",
+      "experiment": "series-parallel",
+      "task": "series",
+      "description": "Ammeter connected across R1 (parallel with a resistor).",
+      "checkpoint": "SWITCH_CLOSE",
+      "circuit": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 6
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": true
+          },
+          {
+            "id": "R1",
+            "type": "resistor",
+            "role": "R1",
+            "ohms": 10
+          },
+          {
+            "id": "R2",
+            "type": "resistor",
+            "role": "R2",
+            "ohms": 20
+          },
+          {
+            "id": "A",
+            "type": "ammeter"
+          },
+          {
+            "id": "V",
+            "type": "voltmeter"
+          }
+        ],
+        "wires": [
+          [
+            "S.pos",
+            "SW.a"
+          ],
+          [
+            "SW.b",
+            "R1.a"
+          ],
+          [
+            "R1.b",
+            "R2.a"
+          ],
+          [
+            "R2.b",
+            "S.neg"
+          ],
+          [
+            "A.pos",
+            "R1.a"
+          ],
+          [
+            "A.neg",
+            "R1.b"
+          ],
+          [
+            "V.pos",
+            "R1.a"
+          ],
+          [
+            "V.neg",
+            "R2.b"
+          ]
+        ]
+      },
+      "history": {
+        "readings": [],
+        "answers": []
+      },
+      "expect": {
+        "errors": [
+          "AMMETER_PARALLEL"
+        ],
+        "ok": [],
+        "overload": false
+      }
+    },
+    {
+      "id": "SP-09",
+      "experiment": "series-parallel",
+      "task": "series",
+      "description": "Valid series circuit with the ammeter between R1 and R2.",
+      "checkpoint": "RECORD_READING",
+      "circuit": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 6
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": true
+          },
+          {
+            "id": "R1",
+            "type": "resistor",
+            "role": "R1",
+            "ohms": 10
+          },
+          {
+            "id": "R2",
+            "type": "resistor",
+            "role": "R2",
+            "ohms": 20
+          },
+          {
+            "id": "A",
+            "type": "ammeter"
+          },
+          {
+            "id": "V",
+            "type": "voltmeter"
+          }
+        ],
+        "wires": [
+          [
+            "S.pos",
+            "SW.a"
+          ],
+          [
+            "SW.b",
+            "R1.a"
+          ],
+          [
+            "R1.b",
+            "A.pos"
+          ],
+          [
+            "A.neg",
+            "R2.a"
+          ],
+          [
+            "R2.b",
+            "S.neg"
+          ],
+          [
+            "V.pos",
+            "R1.a"
+          ],
+          [
+            "V.neg",
+            "R2.b"
+          ]
+        ]
+      },
+      "history": {
+        "readings": [],
+        "answers": []
+      },
+      "expect": {
+        "errors": [],
+        "ok": [
+          "OK_CIRCUIT_COMPLETE",
+          "OK_AMMETER_SERIES",
+          "OK_VOLTMETER_ACROSS",
+          "OK_POLARITY",
+          "OK_TOPOLOGY.series"
+        ],
+        "overload": false,
+        "readings": {
+          "ammeter": 0.2,
+          "voltmeter": 6.0
+        }
+      }
+    },
+    {
+      "id": "SP-A1",
+      "experiment": "series-parallel",
+      "task": "series",
+      "description": "Series 10+20 typed 30.",
+      "checkpoint": "ANSWER_SUBMIT",
+      "circuit": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 6
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": true
+          },
+          {
+            "id": "R1",
+            "type": "resistor",
+            "role": "R1",
+            "ohms": 10
+          },
+          {
+            "id": "R2",
+            "type": "resistor",
+            "role": "R2",
+            "ohms": 20
+          },
+          {
+            "id": "A",
+            "type": "ammeter"
+          },
+          {
+            "id": "V",
+            "type": "voltmeter"
+          }
+        ],
+        "wires": [
+          [
+            "S.pos",
+            "SW.a"
+          ],
+          [
+            "SW.b",
+            "A.pos"
+          ],
+          [
+            "A.neg",
+            "R1.a"
+          ],
+          [
+            "R1.b",
+            "R2.a"
+          ],
+          [
+            "R2.b",
+            "S.neg"
+          ],
+          [
+            "V.pos",
+            "R1.a"
+          ],
+          [
+            "V.neg",
+            "R2.b"
+          ]
+        ]
+      },
+      "history": {
+        "readings": [],
+        "answers": []
+      },
+      "submittedAnswer": 30,
+      "expect": {
+        "errors": [],
+        "ok": [
+          "OK_ANSWER"
+        ]
+      }
+    },
+    {
+      "id": "SP-A2",
+      "experiment": "series-parallel",
+      "task": "series",
+      "description": "Series typed 25.",
+      "checkpoint": "ANSWER_SUBMIT",
+      "circuit": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 6
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": true
+          },
+          {
+            "id": "R1",
+            "type": "resistor",
+            "role": "R1",
+            "ohms": 10
+          },
+          {
+            "id": "R2",
+            "type": "resistor",
+            "role": "R2",
+            "ohms": 20
+          },
+          {
+            "id": "A",
+            "type": "ammeter"
+          },
+          {
+            "id": "V",
+            "type": "voltmeter"
+          }
+        ],
+        "wires": [
+          [
+            "S.pos",
+            "SW.a"
+          ],
+          [
+            "SW.b",
+            "A.pos"
+          ],
+          [
+            "A.neg",
+            "R1.a"
+          ],
+          [
+            "R1.b",
+            "R2.a"
+          ],
+          [
+            "R2.b",
+            "S.neg"
+          ],
+          [
+            "V.pos",
+            "R1.a"
+          ],
+          [
+            "V.neg",
+            "R2.b"
+          ]
+        ]
+      },
+      "history": {
+        "readings": [],
+        "answers": []
+      },
+      "submittedAnswer": 25,
+      "expect": {
+        "errors": [
+          "EQUIVALENT_R_WRONG.series"
+        ],
+        "ok": []
+      }
+    },
+    {
+      "id": "SP-A3",
+      "experiment": "series-parallel",
+      "task": "series",
+      "description": "Series typed 30.5 (1.67% off, accepted).",
+      "checkpoint": "ANSWER_SUBMIT",
+      "circuit": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 6
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": true
+          },
+          {
+            "id": "R1",
+            "type": "resistor",
+            "role": "R1",
+            "ohms": 10
+          },
+          {
+            "id": "R2",
+            "type": "resistor",
+            "role": "R2",
+            "ohms": 20
+          },
+          {
+            "id": "A",
+            "type": "ammeter"
+          },
+          {
+            "id": "V",
+            "type": "voltmeter"
+          }
+        ],
+        "wires": [
+          [
+            "S.pos",
+            "SW.a"
+          ],
+          [
+            "SW.b",
+            "A.pos"
+          ],
+          [
+            "A.neg",
+            "R1.a"
+          ],
+          [
+            "R1.b",
+            "R2.a"
+          ],
+          [
+            "R2.b",
+            "S.neg"
+          ],
+          [
+            "V.pos",
+            "R1.a"
+          ],
+          [
+            "V.neg",
+            "R2.b"
+          ]
+        ]
+      },
+      "history": {
+        "readings": [],
+        "answers": []
+      },
+      "submittedAnswer": 30.5,
+      "expect": {
+        "errors": [],
+        "ok": [
+          "OK_ANSWER"
+        ]
+      }
+    },
+    {
+      "id": "SP-A4",
+      "experiment": "series-parallel",
+      "task": "parallel",
+      "description": "Parallel 10||20 = 6.667 typed 6.75 (1.25% off, accepted).",
+      "checkpoint": "ANSWER_SUBMIT",
+      "circuit": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 6
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": true
+          },
+          {
+            "id": "R1",
+            "type": "resistor",
+            "role": "R1",
+            "ohms": 10
+          },
+          {
+            "id": "R2",
+            "type": "resistor",
+            "role": "R2",
+            "ohms": 20
+          },
+          {
+            "id": "A",
+            "type": "ammeter"
+          },
+          {
+            "id": "V",
+            "type": "voltmeter"
+          }
+        ],
+        "wires": [
+          [
+            "S.pos",
+            "SW.a"
+          ],
+          [
+            "SW.b",
+            "A.pos"
+          ],
+          [
+            "A.neg",
+            "R1.a"
+          ],
+          [
+            "R1.a",
+            "R2.a"
+          ],
+          [
+            "R1.b",
+            "R2.b"
+          ],
+          [
+            "R2.b",
+            "S.neg"
+          ],
+          [
+            "V.pos",
+            "R1.a"
+          ],
+          [
+            "V.neg",
+            "R1.b"
+          ]
+        ]
+      },
+      "history": {
+        "readings": [],
+        "answers": []
+      },
+      "submittedAnswer": 6.75,
+      "expect": {
+        "errors": [],
+        "ok": [
+          "OK_ANSWER"
+        ]
+      }
+    },
+    {
+      "id": "SP-A5",
+      "experiment": "series-parallel",
+      "task": "parallel",
+      "description": "Parallel typed 6.5 (2.5% off, rejected).",
+      "checkpoint": "ANSWER_SUBMIT",
+      "circuit": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 6
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": true
+          },
+          {
+            "id": "R1",
+            "type": "resistor",
+            "role": "R1",
+            "ohms": 10
+          },
+          {
+            "id": "R2",
+            "type": "resistor",
+            "role": "R2",
+            "ohms": 20
+          },
+          {
+            "id": "A",
+            "type": "ammeter"
+          },
+          {
+            "id": "V",
+            "type": "voltmeter"
+          }
+        ],
+        "wires": [
+          [
+            "S.pos",
+            "SW.a"
+          ],
+          [
+            "SW.b",
+            "A.pos"
+          ],
+          [
+            "A.neg",
+            "R1.a"
+          ],
+          [
+            "R1.a",
+            "R2.a"
+          ],
+          [
+            "R1.b",
+            "R2.b"
+          ],
+          [
+            "R2.b",
+            "S.neg"
+          ],
+          [
+            "V.pos",
+            "R1.a"
+          ],
+          [
+            "V.neg",
+            "R1.b"
+          ]
+        ]
+      },
+      "history": {
+        "readings": [],
+        "answers": []
+      },
+      "submittedAnswer": 6.5,
+      "expect": {
+        "errors": [
+          "EQUIVALENT_R_WRONG.parallel"
+        ],
+        "ok": []
+      }
+    },
+    {
+      "id": "SP-A6",
+      "experiment": "series-parallel",
+      "task": "parallel",
+      "description": "Parallel typed the series answer.",
+      "checkpoint": "ANSWER_SUBMIT",
+      "circuit": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 6
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": true
+          },
+          {
+            "id": "R1",
+            "type": "resistor",
+            "role": "R1",
+            "ohms": 10
+          },
+          {
+            "id": "R2",
+            "type": "resistor",
+            "role": "R2",
+            "ohms": 20
+          },
+          {
+            "id": "A",
+            "type": "ammeter"
+          },
+          {
+            "id": "V",
+            "type": "voltmeter"
+          }
+        ],
+        "wires": [
+          [
+            "S.pos",
+            "SW.a"
+          ],
+          [
+            "SW.b",
+            "A.pos"
+          ],
+          [
+            "A.neg",
+            "R1.a"
+          ],
+          [
+            "R1.a",
+            "R2.a"
+          ],
+          [
+            "R1.b",
+            "R2.b"
+          ],
+          [
+            "R2.b",
+            "S.neg"
+          ],
+          [
+            "V.pos",
+            "R1.a"
+          ],
+          [
+            "V.neg",
+            "R1.b"
+          ]
+        ]
+      },
+      "history": {
+        "readings": [],
+        "answers": []
+      },
+      "submittedAnswer": 30,
+      "expect": {
+        "errors": [
+          "EQUIVALENT_R_WRONG.parallel"
+        ],
+        "ok": []
+      }
+    },
+    {
+      "id": "SP-A7",
+      "experiment": "series-parallel",
+      "task": "series",
+      "description": "Answer submitted with R2 not on the bench.",
+      "checkpoint": "ANSWER_SUBMIT",
+      "circuit": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 6
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": true
+          },
+          {
+            "id": "R1",
+            "type": "resistor",
+            "role": "R1",
+            "ohms": 10
+          },
+          {
+            "id": "A",
+            "type": "ammeter"
+          },
+          {
+            "id": "V",
+            "type": "voltmeter"
+          }
+        ],
+        "wires": []
+      },
+      "history": {
+        "readings": [],
+        "answers": []
+      },
+      "submittedAnswer": 30,
+      "expect": {
+        "errors": [
+          "MISSING_COMPONENT"
+        ],
+        "ok": []
+      }
+    },
+    {
+      "id": "SP-F1",
+      "experiment": "series-parallel",
+      "task": "series",
+      "description": "Finish: 3 readings + correct answer.",
+      "checkpoint": "FINISH",
+      "circuit": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 6
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": true
+          },
+          {
+            "id": "R1",
+            "type": "resistor",
+            "role": "R1",
+            "ohms": 10
+          },
+          {
+            "id": "R2",
+            "type": "resistor",
+            "role": "R2",
+            "ohms": 20
+          },
+          {
+            "id": "A",
+            "type": "ammeter"
+          },
+          {
+            "id": "V",
+            "type": "voltmeter"
+          }
+        ],
+        "wires": [
+          [
+            "S.pos",
+            "SW.a"
+          ],
+          [
+            "SW.b",
+            "A.pos"
+          ],
+          [
+            "A.neg",
+            "R1.a"
+          ],
+          [
+            "R1.b",
+            "R2.a"
+          ],
+          [
+            "R2.b",
+            "S.neg"
+          ],
+          [
+            "V.pos",
+            "R1.a"
+          ],
+          [
+            "V.neg",
+            "R2.b"
+          ]
+        ]
+      },
+      "history": {
+        "readings": [
+          {
+            "taskId": "series",
+            "supplyVoltage": 2
+          },
+          {
+            "taskId": "series",
+            "supplyVoltage": 4
+          },
+          {
+            "taskId": "series",
+            "supplyVoltage": 6
+          }
+        ],
+        "answers": [
+          {
+            "taskId": "series",
+            "typed": 30,
+            "expected": 30,
+            "correct": true
+          }
+        ]
+      },
+      "expect": {
+        "errors": [],
+        "ok": []
+      }
+    },
+    {
+      "id": "SP-F2",
+      "experiment": "series-parallel",
+      "task": "series",
+      "description": "Finish: only 2 readings.",
+      "checkpoint": "FINISH",
+      "circuit": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 6
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": true
+          },
+          {
+            "id": "R1",
+            "type": "resistor",
+            "role": "R1",
+            "ohms": 10
+          },
+          {
+            "id": "R2",
+            "type": "resistor",
+            "role": "R2",
+            "ohms": 20
+          },
+          {
+            "id": "A",
+            "type": "ammeter"
+          },
+          {
+            "id": "V",
+            "type": "voltmeter"
+          }
+        ],
+        "wires": [
+          [
+            "S.pos",
+            "SW.a"
+          ],
+          [
+            "SW.b",
+            "A.pos"
+          ],
+          [
+            "A.neg",
+            "R1.a"
+          ],
+          [
+            "R1.b",
+            "R2.a"
+          ],
+          [
+            "R2.b",
+            "S.neg"
+          ],
+          [
+            "V.pos",
+            "R1.a"
+          ],
+          [
+            "V.neg",
+            "R2.b"
+          ]
+        ]
+      },
+      "history": {
+        "readings": [
+          {
+            "taskId": "series",
+            "supplyVoltage": 2
+          },
+          {
+            "taskId": "series",
+            "supplyVoltage": 4
+          }
+        ],
+        "answers": [
+          {
+            "taskId": "series",
+            "typed": 30,
+            "expected": 30,
+            "correct": true
+          }
+        ]
+      },
+      "expect": {
+        "errors": [
+          "MISSING_READING"
+        ],
+        "ok": []
+      }
+    },
+    {
+      "id": "SP-F3",
+      "experiment": "series-parallel",
+      "task": "series",
+      "description": "Finish: readings fine, no correct answer.",
+      "checkpoint": "FINISH",
+      "circuit": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 6
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": true
+          },
+          {
+            "id": "R1",
+            "type": "resistor",
+            "role": "R1",
+            "ohms": 10
+          },
+          {
+            "id": "R2",
+            "type": "resistor",
+            "role": "R2",
+            "ohms": 20
+          },
+          {
+            "id": "A",
+            "type": "ammeter"
+          },
+          {
+            "id": "V",
+            "type": "voltmeter"
+          }
+        ],
+        "wires": [
+          [
+            "S.pos",
+            "SW.a"
+          ],
+          [
+            "SW.b",
+            "A.pos"
+          ],
+          [
+            "A.neg",
+            "R1.a"
+          ],
+          [
+            "R1.b",
+            "R2.a"
+          ],
+          [
+            "R2.b",
+            "S.neg"
+          ],
+          [
+            "V.pos",
+            "R1.a"
+          ],
+          [
+            "V.neg",
+            "R2.b"
+          ]
+        ]
+      },
+      "history": {
+        "readings": [
+          {
+            "taskId": "series",
+            "supplyVoltage": 2
+          },
+          {
+            "taskId": "series",
+            "supplyVoltage": 4
+          },
+          {
+            "taskId": "series",
+            "supplyVoltage": 6
+          }
+        ],
+        "answers": []
+      },
+      "expect": {
+        "errors": [
+          "MISSING_ANSWER"
+        ],
+        "ok": []
+      }
+    },
+    {
+      "id": "SP-F4",
+      "experiment": "series-parallel",
+      "task": "series",
+      "description": "Finish: 2 readings and no answer, both reported.",
+      "checkpoint": "FINISH",
+      "circuit": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 6
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": true
+          },
+          {
+            "id": "R1",
+            "type": "resistor",
+            "role": "R1",
+            "ohms": 10
+          },
+          {
+            "id": "R2",
+            "type": "resistor",
+            "role": "R2",
+            "ohms": 20
+          },
+          {
+            "id": "A",
+            "type": "ammeter"
+          },
+          {
+            "id": "V",
+            "type": "voltmeter"
+          }
+        ],
+        "wires": [
+          [
+            "S.pos",
+            "SW.a"
+          ],
+          [
+            "SW.b",
+            "A.pos"
+          ],
+          [
+            "A.neg",
+            "R1.a"
+          ],
+          [
+            "R1.b",
+            "R2.a"
+          ],
+          [
+            "R2.b",
+            "S.neg"
+          ],
+          [
+            "V.pos",
+            "R1.a"
+          ],
+          [
+            "V.neg",
+            "R2.b"
+          ]
+        ]
+      },
+      "history": {
+        "readings": [
+          {
+            "taskId": "series",
+            "supplyVoltage": 2
+          },
+          {
+            "taskId": "series",
+            "supplyVoltage": 4
+          }
+        ],
+        "answers": []
+      },
+      "expect": {
+        "errors": [
+          "MISSING_READING",
+          "MISSING_ANSWER"
+        ],
+        "ok": []
+      }
+    },
+    {
+      "id": "SP-F5",
+      "experiment": "series-parallel",
+      "task": "parallel",
+      "description": "Finish parallel: readings from the series task do not count.",
+      "checkpoint": "FINISH",
+      "circuit": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 6
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": true
+          },
+          {
+            "id": "R1",
+            "type": "resistor",
+            "role": "R1",
+            "ohms": 10
+          },
+          {
+            "id": "R2",
+            "type": "resistor",
+            "role": "R2",
+            "ohms": 20
+          },
+          {
+            "id": "A",
+            "type": "ammeter"
+          },
+          {
+            "id": "V",
+            "type": "voltmeter"
+          }
+        ],
+        "wires": [
+          [
+            "S.pos",
+            "SW.a"
+          ],
+          [
+            "SW.b",
+            "A.pos"
+          ],
+          [
+            "A.neg",
+            "R1.a"
+          ],
+          [
+            "R1.a",
+            "R2.a"
+          ],
+          [
+            "R1.b",
+            "R2.b"
+          ],
+          [
+            "R2.b",
+            "S.neg"
+          ],
+          [
+            "V.pos",
+            "R1.a"
+          ],
+          [
+            "V.neg",
+            "R1.b"
+          ]
+        ]
+      },
+      "history": {
+        "readings": [
+          {
+            "taskId": "series",
+            "supplyVoltage": 2
+          },
+          {
+            "taskId": "series",
+            "supplyVoltage": 4
+          },
+          {
+            "taskId": "series",
+            "supplyVoltage": 6
+          }
+        ],
+        "answers": [
+          {
+            "taskId": "series",
+            "typed": 30,
+            "expected": 30,
+            "correct": true
+          }
+        ]
+      },
+      "expect": {
+        "errors": [
+          "MISSING_READING",
+          "MISSING_ANSWER"
+        ],
+        "ok": []
+      }
+    }
+  ]
+}

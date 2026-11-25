@@ -1,0 +1,1592 @@
+{
+  "format": "see _format.md",
+  "cases": [
+    {
+      "id": "OHM-01",
+      "experiment": "ohms-law",
+      "task": "main",
+      "description": "Correct circuit, ammeter before the resistor.",
+      "checkpoint": "RECORD_READING",
+      "circuit": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 6
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": true
+          },
+          {
+            "id": "R",
+            "type": "resistor",
+            "role": "R",
+            "ohms": 10
+          },
+          {
+            "id": "A",
+            "type": "ammeter"
+          },
+          {
+            "id": "V",
+            "type": "voltmeter"
+          }
+        ],
+        "wires": [
+          [
+            "S.pos",
+            "SW.a"
+          ],
+          [
+            "SW.b",
+            "A.pos"
+          ],
+          [
+            "A.neg",
+            "R.a"
+          ],
+          [
+            "R.b",
+            "S.neg"
+          ],
+          [
+            "V.pos",
+            "R.a"
+          ],
+          [
+            "V.neg",
+            "R.b"
+          ]
+        ]
+      },
+      "history": {
+        "readings": [],
+        "answers": []
+      },
+      "expect": {
+        "errors": [],
+        "ok": [
+          "OK_CIRCUIT_COMPLETE",
+          "OK_AMMETER_SERIES",
+          "OK_VOLTMETER_ACROSS",
+          "OK_POLARITY"
+        ],
+        "overload": false,
+        "readings": {
+          "ammeter": 0.6,
+          "voltmeter": 6.0
+        }
+      }
+    },
+    {
+      "id": "OHM-02",
+      "experiment": "ohms-law",
+      "task": "main",
+      "description": "Correct circuit, ammeter after the resistor (also valid).",
+      "checkpoint": "RECORD_READING",
+      "circuit": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 6
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": true
+          },
+          {
+            "id": "R",
+            "type": "resistor",
+            "role": "R",
+            "ohms": 10
+          },
+          {
+            "id": "A",
+            "type": "ammeter"
+          },
+          {
+            "id": "V",
+            "type": "voltmeter"
+          }
+        ],
+        "wires": [
+          [
+            "S.pos",
+            "SW.a"
+          ],
+          [
+            "SW.b",
+            "R.a"
+          ],
+          [
+            "R.b",
+            "A.pos"
+          ],
+          [
+            "A.neg",
+            "S.neg"
+          ],
+          [
+            "V.pos",
+            "R.a"
+          ],
+          [
+            "V.neg",
+            "R.b"
+          ]
+        ]
+      },
+      "history": {
+        "readings": [],
+        "answers": []
+      },
+      "expect": {
+        "errors": [],
+        "ok": [
+          "OK_CIRCUIT_COMPLETE",
+          "OK_AMMETER_SERIES",
+          "OK_VOLTMETER_ACROSS",
+          "OK_POLARITY"
+        ],
+        "overload": false,
+        "readings": {
+          "ammeter": 0.6,
+          "voltmeter": 6.0
+        }
+      }
+    },
+    {
+      "id": "OHM-03",
+      "experiment": "ohms-law",
+      "task": "main",
+      "description": "Voltmeter wired across the supply terminals. Accepted: wires, closed switch and ammeter count as the same electrical point.",
+      "checkpoint": "RECORD_READING",
+      "circuit": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 6
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": true
+          },
+          {
+            "id": "R",
+            "type": "resistor",
+            "role": "R",
+            "ohms": 10
+          },
+          {
+            "id": "A",
+            "type": "ammeter"
+          },
+          {
+            "id": "V",
+            "type": "voltmeter"
+          }
+        ],
+        "wires": [
+          [
+            "S.pos",
+            "SW.a"
+          ],
+          [
+            "SW.b",
+            "A.pos"
+          ],
+          [
+            "A.neg",
+            "R.a"
+          ],
+          [
+            "R.b",
+            "S.neg"
+          ],
+          [
+            "V.pos",
+            "SW.a"
+          ],
+          [
+            "V.neg",
+            "R.b"
+          ]
+        ]
+      },
+      "history": {
+        "readings": [],
+        "answers": []
+      },
+      "expect": {
+        "errors": [],
+        "ok": [
+          "OK_CIRCUIT_COMPLETE",
+          "OK_AMMETER_SERIES",
+          "OK_VOLTMETER_ACROSS",
+          "OK_POLARITY"
+        ],
+        "overload": false,
+        "readings": {
+          "ammeter": 0.6,
+          "voltmeter": 6.0
+        }
+      }
+    },
+    {
+      "id": "OHM-04",
+      "experiment": "ohms-law",
+      "task": "main",
+      "description": "Ammeter connected across the resistor. AMMETER_PARALLEL only; SHORT_CIRCUIT is suppressed.",
+      "checkpoint": "SWITCH_CLOSE",
+      "circuit": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 6
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": true
+          },
+          {
+            "id": "R",
+            "type": "resistor",
+            "role": "R",
+            "ohms": 10
+          },
+          {
+            "id": "A",
+            "type": "ammeter"
+          },
+          {
+            "id": "V",
+            "type": "voltmeter"
+          }
+        ],
+        "wires": [
+          [
+            "S.pos",
+            "SW.a"
+          ],
+          [
+            "SW.b",
+            "R.a"
+          ],
+          [
+            "R.b",
+            "S.neg"
+          ],
+          [
+            "A.pos",
+            "R.a"
+          ],
+          [
+            "A.neg",
+            "R.b"
+          ],
+          [
+            "V.pos",
+            "R.a"
+          ],
+          [
+            "V.neg",
+            "R.b"
+          ]
+        ]
+      },
+      "history": {
+        "readings": [],
+        "answers": []
+      },
+      "expect": {
+        "errors": [
+          "AMMETER_PARALLEL"
+        ],
+        "ok": [],
+        "overload": true
+      }
+    },
+    {
+      "id": "OHM-05",
+      "experiment": "ohms-law",
+      "task": "main",
+      "description": "A bare wire across the supply terminals.",
+      "checkpoint": "SWITCH_CLOSE",
+      "circuit": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 6
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": true
+          },
+          {
+            "id": "R",
+            "type": "resistor",
+            "role": "R",
+            "ohms": 10
+          },
+          {
+            "id": "A",
+            "type": "ammeter"
+          },
+          {
+            "id": "V",
+            "type": "voltmeter"
+          }
+        ],
+        "wires": [
+          [
+            "S.pos",
+            "SW.a"
+          ],
+          [
+            "SW.b",
+            "A.pos"
+          ],
+          [
+            "A.neg",
+            "R.a"
+          ],
+          [
+            "R.b",
+            "S.neg"
+          ],
+          [
+            "V.pos",
+            "R.a"
+          ],
+          [
+            "V.neg",
+            "R.b"
+          ],
+          [
+            "S.pos",
+            "S.neg"
+          ]
+        ]
+      },
+      "history": {
+        "readings": [],
+        "answers": []
+      },
+      "expect": {
+        "errors": [
+          "SHORT_CIRCUIT"
+        ],
+        "ok": [],
+        "overload": true
+      }
+    },
+    {
+      "id": "OHM-06",
+      "experiment": "ohms-law",
+      "task": "main",
+      "description": "Loop made only of switch and ammeter (no resistor). Short caused by an ammeter that is NOT in parallel, so SHORT_CIRCUIT is reported.",
+      "checkpoint": "SWITCH_CLOSE",
+      "circuit": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 6
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": true
+          },
+          {
+            "id": "R",
+            "type": "resistor",
+            "role": "R",
+            "ohms": 10
+          },
+          {
+            "id": "A",
+            "type": "ammeter"
+          },
+          {
+            "id": "V",
+            "type": "voltmeter"
+          }
+        ],
+        "wires": [
+          [
+            "S.pos",
+            "SW.a"
+          ],
+          [
+            "SW.b",
+            "A.pos"
+          ],
+          [
+            "A.neg",
+            "S.neg"
+          ]
+        ]
+      },
+      "history": {
+        "readings": [],
+        "answers": []
+      },
+      "expect": {
+        "errors": [
+          "SHORT_CIRCUIT"
+        ],
+        "ok": [],
+        "overload": true
+      }
+    },
+    {
+      "id": "OHM-07",
+      "experiment": "ohms-law",
+      "task": "main",
+      "description": "Voltmeter placed in the main path.",
+      "checkpoint": "SWITCH_CLOSE",
+      "circuit": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 6
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": true
+          },
+          {
+            "id": "R",
+            "type": "resistor",
+            "role": "R",
+            "ohms": 10
+          },
+          {
+            "id": "A",
+            "type": "ammeter"
+          },
+          {
+            "id": "V",
+            "type": "voltmeter"
+          }
+        ],
+        "wires": [
+          [
+            "S.pos",
+            "SW.a"
+          ],
+          [
+            "SW.b",
+            "A.pos"
+          ],
+          [
+            "A.neg",
+            "V.pos"
+          ],
+          [
+            "V.neg",
+            "R.a"
+          ],
+          [
+            "R.b",
+            "S.neg"
+          ]
+        ]
+      },
+      "history": {
+        "readings": [],
+        "answers": []
+      },
+      "expect": {
+        "errors": [
+          "VOLTMETER_SERIES"
+        ],
+        "ok": []
+      }
+    },
+    {
+      "id": "OHM-08",
+      "experiment": "ohms-law",
+      "task": "main",
+      "description": "Wire from resistor to supply − is missing.",
+      "checkpoint": "SWITCH_CLOSE",
+      "circuit": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 6
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": true
+          },
+          {
+            "id": "R",
+            "type": "resistor",
+            "role": "R",
+            "ohms": 10
+          },
+          {
+            "id": "A",
+            "type": "ammeter"
+          },
+          {
+            "id": "V",
+            "type": "voltmeter"
+          }
+        ],
+        "wires": [
+          [
+            "S.pos",
+            "SW.a"
+          ],
+          [
+            "SW.b",
+            "A.pos"
+          ],
+          [
+            "A.neg",
+            "R.a"
+          ],
+          [
+            "V.pos",
+            "R.a"
+          ],
+          [
+            "V.neg",
+            "R.b"
+          ]
+        ]
+      },
+      "history": {
+        "readings": [],
+        "answers": []
+      },
+      "expect": {
+        "errors": [
+          "OPEN_CIRCUIT.gap"
+        ],
+        "ok": []
+      }
+    },
+    {
+      "id": "OHM-09",
+      "experiment": "ohms-law",
+      "task": "main",
+      "description": "Correct circuit but the switch is open when recording.",
+      "checkpoint": "RECORD_READING",
+      "circuit": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 6
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": false
+          },
+          {
+            "id": "R",
+            "type": "resistor",
+            "role": "R",
+            "ohms": 10
+          },
+          {
+            "id": "A",
+            "type": "ammeter"
+          },
+          {
+            "id": "V",
+            "type": "voltmeter"
+          }
+        ],
+        "wires": [
+          [
+            "S.pos",
+            "SW.a"
+          ],
+          [
+            "SW.b",
+            "A.pos"
+          ],
+          [
+            "A.neg",
+            "R.a"
+          ],
+          [
+            "R.b",
+            "S.neg"
+          ],
+          [
+            "V.pos",
+            "R.a"
+          ],
+          [
+            "V.neg",
+            "R.b"
+          ]
+        ]
+      },
+      "history": {
+        "readings": [],
+        "answers": []
+      },
+      "expect": {
+        "errors": [
+          "OPEN_CIRCUIT.switch_open"
+        ],
+        "ok": []
+      }
+    },
+    {
+      "id": "OHM-10",
+      "experiment": "ohms-law",
+      "task": "main",
+      "description": "Ammeter reversed (current enters the − terminal).",
+      "checkpoint": "RECORD_READING",
+      "circuit": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 6
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": true
+          },
+          {
+            "id": "R",
+            "type": "resistor",
+            "role": "R",
+            "ohms": 10
+          },
+          {
+            "id": "A",
+            "type": "ammeter"
+          },
+          {
+            "id": "V",
+            "type": "voltmeter"
+          }
+        ],
+        "wires": [
+          [
+            "S.pos",
+            "SW.a"
+          ],
+          [
+            "SW.b",
+            "A.neg"
+          ],
+          [
+            "A.pos",
+            "R.a"
+          ],
+          [
+            "R.b",
+            "S.neg"
+          ],
+          [
+            "V.pos",
+            "R.a"
+          ],
+          [
+            "V.neg",
+            "R.b"
+          ]
+        ]
+      },
+      "history": {
+        "readings": [],
+        "answers": []
+      },
+      "expect": {
+        "errors": [
+          "WRONG_POLARITY"
+        ],
+        "ok": [
+          "OK_CIRCUIT_COMPLETE",
+          "OK_AMMETER_SERIES",
+          "OK_VOLTMETER_ACROSS"
+        ],
+        "overload": false,
+        "readings": {
+          "ammeter": -0.6,
+          "voltmeter": 6.0
+        }
+      }
+    },
+    {
+      "id": "OHM-11",
+      "experiment": "ohms-law",
+      "task": "main",
+      "description": "Supply connected the wrong way round, so both meters read backwards.",
+      "checkpoint": "RECORD_READING",
+      "circuit": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 6
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": true
+          },
+          {
+            "id": "R",
+            "type": "resistor",
+            "role": "R",
+            "ohms": 10
+          },
+          {
+            "id": "A",
+            "type": "ammeter"
+          },
+          {
+            "id": "V",
+            "type": "voltmeter"
+          }
+        ],
+        "wires": [
+          [
+            "S.neg",
+            "SW.a"
+          ],
+          [
+            "SW.b",
+            "A.pos"
+          ],
+          [
+            "A.neg",
+            "R.a"
+          ],
+          [
+            "R.b",
+            "S.pos"
+          ],
+          [
+            "V.pos",
+            "R.a"
+          ],
+          [
+            "V.neg",
+            "R.b"
+          ]
+        ]
+      },
+      "history": {
+        "readings": [],
+        "answers": []
+      },
+      "expect": {
+        "errors": [
+          "WRONG_POLARITY"
+        ],
+        "ok": [
+          "OK_CIRCUIT_COMPLETE",
+          "OK_AMMETER_SERIES",
+          "OK_VOLTMETER_ACROSS"
+        ],
+        "overload": false,
+        "readings": {
+          "ammeter": -0.6,
+          "voltmeter": -6.0
+        }
+      }
+    },
+    {
+      "id": "OHM-12",
+      "experiment": "ohms-law",
+      "task": "main",
+      "description": "Voltmeter placed across the ammeter instead of the resistor.",
+      "checkpoint": "RECORD_READING",
+      "circuit": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 6
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": true
+          },
+          {
+            "id": "R",
+            "type": "resistor",
+            "role": "R",
+            "ohms": 10
+          },
+          {
+            "id": "A",
+            "type": "ammeter"
+          },
+          {
+            "id": "V",
+            "type": "voltmeter"
+          }
+        ],
+        "wires": [
+          [
+            "S.pos",
+            "SW.a"
+          ],
+          [
+            "SW.b",
+            "A.pos"
+          ],
+          [
+            "A.neg",
+            "R.a"
+          ],
+          [
+            "R.b",
+            "S.neg"
+          ],
+          [
+            "V.pos",
+            "A.pos"
+          ],
+          [
+            "V.neg",
+            "A.neg"
+          ]
+        ]
+      },
+      "history": {
+        "readings": [],
+        "answers": []
+      },
+      "expect": {
+        "errors": [
+          "VOLTMETER_WRONG_PLACE.single"
+        ],
+        "ok": [
+          "OK_CIRCUIT_COMPLETE",
+          "OK_AMMETER_SERIES"
+        ],
+        "overload": false,
+        "readings": {
+          "ammeter": 0.6,
+          "voltmeter": 0.0
+        }
+      }
+    },
+    {
+      "id": "OHM-13",
+      "experiment": "ohms-law",
+      "task": "main",
+      "description": "Voltmeter is on the bench but not wired.",
+      "checkpoint": "RECORD_READING",
+      "circuit": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 6
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": true
+          },
+          {
+            "id": "R",
+            "type": "resistor",
+            "role": "R",
+            "ohms": 10
+          },
+          {
+            "id": "A",
+            "type": "ammeter"
+          },
+          {
+            "id": "V",
+            "type": "voltmeter"
+          }
+        ],
+        "wires": [
+          [
+            "S.pos",
+            "SW.a"
+          ],
+          [
+            "SW.b",
+            "A.pos"
+          ],
+          [
+            "A.neg",
+            "R.a"
+          ],
+          [
+            "R.b",
+            "S.neg"
+          ]
+        ]
+      },
+      "history": {
+        "readings": [],
+        "answers": []
+      },
+      "expect": {
+        "errors": [
+          "VOLTMETER_WRONG_PLACE.single"
+        ],
+        "ok": [
+          "OK_CIRCUIT_COMPLETE",
+          "OK_AMMETER_SERIES"
+        ],
+        "overload": false,
+        "readings": {
+          "ammeter": 0.6,
+          "voltmeter": 0.0
+        }
+      }
+    },
+    {
+      "id": "OHM-14",
+      "experiment": "ohms-law",
+      "task": "main",
+      "description": "Ammeter connected at one terminal only (dangling).",
+      "checkpoint": "RECORD_READING",
+      "circuit": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 6
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": true
+          },
+          {
+            "id": "R",
+            "type": "resistor",
+            "role": "R",
+            "ohms": 10
+          },
+          {
+            "id": "A",
+            "type": "ammeter"
+          },
+          {
+            "id": "V",
+            "type": "voltmeter"
+          }
+        ],
+        "wires": [
+          [
+            "S.pos",
+            "SW.a"
+          ],
+          [
+            "SW.b",
+            "R.a"
+          ],
+          [
+            "R.b",
+            "S.neg"
+          ],
+          [
+            "V.pos",
+            "R.a"
+          ],
+          [
+            "V.neg",
+            "R.b"
+          ],
+          [
+            "A.pos",
+            "R.a"
+          ]
+        ]
+      },
+      "history": {
+        "readings": [],
+        "answers": []
+      },
+      "expect": {
+        "errors": [
+          "AMMETER_NOT_IN_SERIES"
+        ],
+        "ok": [
+          "OK_CIRCUIT_COMPLETE",
+          "OK_VOLTMETER_ACROSS"
+        ],
+        "overload": false,
+        "readings": {
+          "ammeter": 0.0,
+          "voltmeter": 6.0
+        }
+      }
+    },
+    {
+      "id": "OHM-15",
+      "experiment": "ohms-law",
+      "task": "main",
+      "description": "No ammeter on the bench at recording time.",
+      "checkpoint": "RECORD_READING",
+      "circuit": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 6
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": true
+          },
+          {
+            "id": "R",
+            "type": "resistor",
+            "role": "R",
+            "ohms": 10
+          },
+          {
+            "id": "V",
+            "type": "voltmeter"
+          }
+        ],
+        "wires": [
+          [
+            "S.pos",
+            "SW.a"
+          ],
+          [
+            "SW.b",
+            "R.a"
+          ],
+          [
+            "R.b",
+            "S.neg"
+          ],
+          [
+            "V.pos",
+            "R.a"
+          ],
+          [
+            "V.neg",
+            "R.b"
+          ]
+        ]
+      },
+      "history": {
+        "readings": [],
+        "answers": []
+      },
+      "expect": {
+        "errors": [
+          "MISSING_COMPONENT"
+        ],
+        "ok": []
+      }
+    },
+    {
+      "id": "OHM-16",
+      "experiment": "ohms-law",
+      "task": "main",
+      "description": "Supply and switch on the bench, no wires, switch closed.",
+      "checkpoint": "SWITCH_CLOSE",
+      "circuit": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 6
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": true
+          }
+        ],
+        "wires": []
+      },
+      "history": {
+        "readings": [],
+        "answers": []
+      },
+      "expect": {
+        "errors": [
+          "OPEN_CIRCUIT.gap"
+        ],
+        "ok": []
+      }
+    },
+    {
+      "id": "OHM-17",
+      "experiment": "ohms-law",
+      "task": "main",
+      "description": "No supply on the bench: nothing to evaluate at SWITCH_CLOSE.",
+      "checkpoint": "SWITCH_CLOSE",
+      "circuit": {
+        "components": [
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": true
+          }
+        ],
+        "wires": []
+      },
+      "history": {
+        "readings": [],
+        "answers": []
+      },
+      "expect": {
+        "errors": [],
+        "ok": []
+      }
+    },
+    {
+      "id": "OHM-18",
+      "experiment": "ohms-law",
+      "task": "main",
+      "description": "Correct circuit with supply set to 0 V. Rules use a 1 V probe, so the verdict is unchanged.",
+      "checkpoint": "RECORD_READING",
+      "circuit": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 0
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": true
+          },
+          {
+            "id": "R",
+            "type": "resistor",
+            "role": "R",
+            "ohms": 10
+          },
+          {
+            "id": "A",
+            "type": "ammeter"
+          },
+          {
+            "id": "V",
+            "type": "voltmeter"
+          }
+        ],
+        "wires": [
+          [
+            "S.pos",
+            "SW.a"
+          ],
+          [
+            "SW.b",
+            "A.pos"
+          ],
+          [
+            "A.neg",
+            "R.a"
+          ],
+          [
+            "R.b",
+            "S.neg"
+          ],
+          [
+            "V.pos",
+            "R.a"
+          ],
+          [
+            "V.neg",
+            "R.b"
+          ]
+        ]
+      },
+      "history": {
+        "readings": [],
+        "answers": []
+      },
+      "expect": {
+        "errors": [],
+        "ok": [
+          "OK_CIRCUIT_COMPLETE",
+          "OK_AMMETER_SERIES",
+          "OK_VOLTMETER_ACROSS",
+          "OK_POLARITY"
+        ],
+        "overload": false,
+        "readings": {
+          "ammeter": 0.0,
+          "voltmeter": 0.0
+        }
+      }
+    },
+    {
+      "id": "OHM-19",
+      "experiment": "ohms-law",
+      "task": "main",
+      "description": "Finish with 3 readings.",
+      "checkpoint": "FINISH",
+      "circuit": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 6
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": true
+          },
+          {
+            "id": "R",
+            "type": "resistor",
+            "role": "R",
+            "ohms": 10
+          },
+          {
+            "id": "A",
+            "type": "ammeter"
+          },
+          {
+            "id": "V",
+            "type": "voltmeter"
+          }
+        ],
+        "wires": [
+          [
+            "S.pos",
+            "SW.a"
+          ],
+          [
+            "SW.b",
+            "A.pos"
+          ],
+          [
+            "A.neg",
+            "R.a"
+          ],
+          [
+            "R.b",
+            "S.neg"
+          ],
+          [
+            "V.pos",
+            "R.a"
+          ],
+          [
+            "V.neg",
+            "R.b"
+          ]
+        ]
+      },
+      "history": {
+        "readings": [
+          {
+            "taskId": "main",
+            "supplyVoltage": 2
+          },
+          {
+            "taskId": "main",
+            "supplyVoltage": 4
+          },
+          {
+            "taskId": "main",
+            "supplyVoltage": 6
+          }
+        ],
+        "answers": []
+      },
+      "expect": {
+        "errors": [
+          "MISSING_READING"
+        ],
+        "ok": []
+      }
+    },
+    {
+      "id": "OHM-20",
+      "experiment": "ohms-law",
+      "task": "main",
+      "description": "Finish with 5 readings but only 3 distinct supply voltages.",
+      "checkpoint": "FINISH",
+      "circuit": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 6
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": true
+          },
+          {
+            "id": "R",
+            "type": "resistor",
+            "role": "R",
+            "ohms": 10
+          },
+          {
+            "id": "A",
+            "type": "ammeter"
+          },
+          {
+            "id": "V",
+            "type": "voltmeter"
+          }
+        ],
+        "wires": [
+          [
+            "S.pos",
+            "SW.a"
+          ],
+          [
+            "SW.b",
+            "A.pos"
+          ],
+          [
+            "A.neg",
+            "R.a"
+          ],
+          [
+            "R.b",
+            "S.neg"
+          ],
+          [
+            "V.pos",
+            "R.a"
+          ],
+          [
+            "V.neg",
+            "R.b"
+          ]
+        ]
+      },
+      "history": {
+        "readings": [
+          {
+            "taskId": "main",
+            "supplyVoltage": 2
+          },
+          {
+            "taskId": "main",
+            "supplyVoltage": 2
+          },
+          {
+            "taskId": "main",
+            "supplyVoltage": 4
+          },
+          {
+            "taskId": "main",
+            "supplyVoltage": 4
+          },
+          {
+            "taskId": "main",
+            "supplyVoltage": 6
+          }
+        ],
+        "answers": []
+      },
+      "expect": {
+        "errors": [
+          "MISSING_READING"
+        ],
+        "ok": []
+      }
+    },
+    {
+      "id": "OHM-21",
+      "experiment": "ohms-law",
+      "task": "main",
+      "description": "Finish with 5 readings at 5 distinct voltages.",
+      "checkpoint": "FINISH",
+      "circuit": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 6
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": true
+          },
+          {
+            "id": "R",
+            "type": "resistor",
+            "role": "R",
+            "ohms": 10
+          },
+          {
+            "id": "A",
+            "type": "ammeter"
+          },
+          {
+            "id": "V",
+            "type": "voltmeter"
+          }
+        ],
+        "wires": [
+          [
+            "S.pos",
+            "SW.a"
+          ],
+          [
+            "SW.b",
+            "A.pos"
+          ],
+          [
+            "A.neg",
+            "R.a"
+          ],
+          [
+            "R.b",
+            "S.neg"
+          ],
+          [
+            "V.pos",
+            "R.a"
+          ],
+          [
+            "V.neg",
+            "R.b"
+          ]
+        ]
+      },
+      "history": {
+        "readings": [
+          {
+            "taskId": "main",
+            "supplyVoltage": 2
+          },
+          {
+            "taskId": "main",
+            "supplyVoltage": 4
+          },
+          {
+            "taskId": "main",
+            "supplyVoltage": 6
+          },
+          {
+            "taskId": "main",
+            "supplyVoltage": 8
+          },
+          {
+            "taskId": "main",
+            "supplyVoltage": 10
+          }
+        ],
+        "answers": []
+      },
+      "expect": {
+        "errors": [],
+        "ok": []
+      }
+    },
+    {
+      "id": "OHM-22",
+      "experiment": "ohms-law",
+      "task": "main",
+      "description": "Reading taken while the supply is 12 V and R is 5 ohm (largest current).",
+      "checkpoint": "RECORD_READING",
+      "circuit": {
+        "components": [
+          {
+            "id": "S",
+            "type": "supply",
+            "voltage": 12
+          },
+          {
+            "id": "SW",
+            "type": "switch",
+            "closed": true
+          },
+          {
+            "id": "R",
+            "type": "resistor",
+            "role": "R",
+            "ohms": 5
+          },
+          {
+            "id": "A",
+            "type": "ammeter"
+          },
+          {
+            "id": "V",
+            "type": "voltmeter"
+          }
+        ],
+        "wires": [
+          [
+            "S.pos",
+            "SW.a"
+          ],
+          [
+            "SW.b",
+            "A.pos"
+          ],
+          [
+            "A.neg",
+            "R.a"
+          ],
+          [
+            "R.b",
+            "S.neg"
+          ],
+          [
+            "V.pos",
+            "R.a"
+          ],
+          [
+            "V.neg",
+            "R.b"
+          ]
+        ]
+      },
+      "history": {
+        "readings": [],
+        "answers": []
+      },
+      "expect": {
+        "errors": [],
+        "ok": [
+          "OK_CIRCUIT_COMPLETE",
+          "OK_AMMETER_SERIES",
+          "OK_VOLTMETER_ACROSS",
+          "OK_POLARITY"
+        ],
+        "overload": false,
+        "readings": {
+          "ammeter": 2.4,
+          "voltmeter": 12.0
+        }
+      }
+    }
+  ]
+}

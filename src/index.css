@@ -1,0 +1,85 @@
+/* Fonts are bundled locally (DESIGN.md §3). Only the Latin and Latin-extended subsets are
+   imported to keep the offline cache small. Symbols outside them (for example the ohm sign)
+   fall back to the system font in the stack. Hindi and Marathi fonts come with those languages. */
+@import '@fontsource/fredoka/latin-500.css';
+@import '@fontsource/fredoka/latin-ext-500.css';
+@import '@fontsource/fredoka/latin-600.css';
+@import '@fontsource/fredoka/latin-ext-600.css';
+@import '@fontsource/nunito/latin-400.css';
+@import '@fontsource/nunito/latin-ext-400.css';
+@import '@fontsource/nunito/latin-600.css';
+@import '@fontsource/nunito/latin-ext-600.css';
+@import '@fontsource/nunito/latin-700.css';
+@import '@fontsource/nunito/latin-ext-700.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply bg-cream text-ink;
+  }
+
+  /* Body type: Nunito 16/26 (DESIGN.md §3). */
+  body {
+    @apply bg-cream font-body text-ink;
+    font-size: 1rem;
+    line-height: 1.625rem;
+  }
+
+  /* Readings and tables must not jitter as digits change (DESIGN.md §3). */
+  table,
+  output,
+  [data-numeric] {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* 3 px teal focus ring on every interactive element (DESIGN.md §11). */
+  :focus-visible {
+    outline: 3px solid theme('colors.teal.DEFAULT');
+    outline-offset: 2px;
+  }
+
+  /* Browsers tint autofilled fields light blue. Fields keep the white fill from DESIGN.md §9.
+     The inset shadow paints over the browser's tint; the long transition stops it flashing back.
+     The standard :autofill gets its own rule because one unknown selector drops a whole rule. */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 1000px theme('colors.white') inset;
+    -webkit-text-fill-color: theme('colors.ink.DEFAULT');
+    caret-color: theme('colors.ink.DEFAULT');
+    transition: background-color 9999s ease-out 0s;
+  }
+
+  input:autofill {
+    box-shadow: 0 0 0 1000px theme('colors.white') inset;
+    -webkit-text-fill-color: theme('colors.ink.DEFAULT');
+    caret-color: theme('colors.ink.DEFAULT');
+  }
+}
+
+/* Reduced motion (DESIGN.md §10): the OS setting or the in-app setting (MotionScope puts
+   data-reduce-motion on <html>) removes animations and transitions. State changes such as
+   a button's lift still happen, they just do not animate. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+html[data-reduce-motion='true'] *,
+html[data-reduce-motion='true'] *::before,
+html[data-reduce-motion='true'] *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}

@@ -1,0 +1,89 @@
+{
+  "id": "ohms-law",
+  "titleKey": "exp.ohms-law.title",
+  "summaryKey": "exp.ohms-law.summary",
+  "supply": {
+    "min": 0,
+    "max": 12,
+    "step": 1,
+    "default": 0,
+    "unit": "V"
+  },
+  "resistorValues": [
+    5,
+    10,
+    15,
+    20,
+    30
+  ],
+  "meterRanges": {
+    "ammeter": 3,
+    "voltmeter": 15,
+    "decimals": 2
+  },
+  "shelf": [
+    {
+      "type": "supply",
+      "max": 1
+    },
+    {
+      "type": "switch",
+      "max": 1
+    },
+    {
+      "type": "resistor",
+      "max": 1,
+      "roles": [
+        "R"
+      ],
+      "defaultOhms": 10
+    },
+    {
+      "type": "ammeter",
+      "max": 1
+    },
+    {
+      "type": "voltmeter",
+      "max": 1
+    }
+  ],
+  "requiredComponents": {
+    "supply": 1,
+    "switch": 1,
+    "resistor": 1,
+    "ammeter": 1,
+    "voltmeter": 1
+  },
+  "activeRules": [
+    "OPEN_CIRCUIT",
+    "SHORT_CIRCUIT",
+    "AMMETER_PARALLEL",
+    "AMMETER_NOT_IN_SERIES",
+    "VOLTMETER_SERIES",
+    "VOLTMETER_WRONG_PLACE",
+    "WRONG_POLARITY",
+    "MISSING_COMPONENT",
+    "MISSING_READING"
+  ],
+  "tasks": [
+    {
+      "id": "main",
+      "instructionKeys": [
+        "exp.ohms-law.step1",
+        "exp.ohms-law.step2",
+        "exp.ohms-law.step3",
+        "exp.ohms-law.step4",
+        "exp.ohms-law.step5",
+        "exp.ohms-law.step6"
+      ],
+      "requiredTopology": "single",
+      "targetResistorRoles": [
+        "R"
+      ],
+      "voltmeterTarget": "single",
+      "minReadings": 5,
+      "distinctSupplyVoltages": true,
+      "requiresEquivalentAnswer": false
+    }
+  ]
+}
