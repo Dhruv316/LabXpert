@@ -4,7 +4,7 @@ import { t } from '../../i18n';
 import { changeReduceMotion, useAppStore, useDb } from '../../state';
 
 /** A real switch (role, aria-checked). The knob position and the check show the state, not colour alone. */
-export function ReduceMotionSwitch() {
+export function ReduceMotionSwitch({ wrap = false }: { wrap?: boolean }) {
   const db = useDb();
   const on = useAppStore((state) => state.reduceMotion);
 
@@ -15,7 +15,7 @@ export function ReduceMotionSwitch() {
       aria-checked={on}
       onClick={() => void changeReduceMotion(db, !on)}
       className={cn(
-        'inline-flex min-h-11 items-center gap-2 rounded-control px-2 font-body text-ink',
+        'inline-flex min-h-11 shrink-0 items-center gap-2 rounded-control px-2 font-body text-ink',
         'hover:bg-teal-tint focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-teal',
       )}
     >
@@ -35,7 +35,7 @@ export function ReduceMotionSwitch() {
           {on && <Icon icon={Check} size={12} />}
         </span>
       </span>
-      {t('common.reduceMotion')}
+      <span className={wrap ? 'text-left leading-tight' : 'whitespace-nowrap'}>{t('common.reduceMotion')}</span>
     </button>
   );
 }

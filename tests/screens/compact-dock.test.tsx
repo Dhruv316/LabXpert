@@ -31,7 +31,7 @@ const dock = (): HTMLElement => {
 };
 const panel = (): HTMLElement => screen.getByRole('complementary', { name: t('bench.panelTitle') });
 
-/** The px values of the classes that start with `prefix` and end with `px]` (`min-h-[44px]`, with or without `!`). */
+/** The px values of the classes that start with `prefix` and end with `px]` (prefix `min-h-` or `!min-h-` matches `min-h-[44px]`). */
 const pxOf = (element: Element, prefix: string): number[] =>
   element.className
     .split(/\s+/)
@@ -61,7 +61,7 @@ describe('the compact dock at 1024 × 640', () => {
     for (const button of buttons) {
       // The `!` class wins over the base 48 px class; a button with none keeps the base one.
       const forced = button.className.split(/\s+/).find((token) => token.startsWith('!min-h-['));
-      const heights = forced === undefined ? pxOf(button, 'min-h') : pxOf(button, '!min-h');
+      const heights = forced === undefined ? pxOf(button, 'min-h-') : pxOf(button, '!min-h-');
       expect(heights.length).toBeGreaterThan(0);
       expect(Math.min(...heights)).toBeGreaterThanOrEqual(DOCK_MIN_CONTROL_PX);
     }

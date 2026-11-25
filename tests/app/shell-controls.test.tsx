@@ -119,3 +119,41 @@ describe('offline indicator', () => {
     expect(screen.queryByText(t('common.offline'))).toBeNull();
   });
 });
+
+describe('top bar at narrow widths', () => {
+  const LONG_NAME = 'Priyadarshini Venkataraghavan-Subramaniam';
+
+  async function openNarrow(width: number) {
+    Object.defineProperty(window, 'innerWidth', { configurable: true, value: width });
+    const db = await makeTestDb();
+    await seedUser(db, LONG_NAME);
+    renderAppAt(db, '#/');
+    await screen.findByRole('heading', { name: t('picker.title') });
+    return screen.getByRole('banner');
+  }
+
+  afterEach(() => {
+    Object.defineProperty(window, 'innerWidth', { configurable: true, value: 1024 });
+  });
+
+  for (const width of [1024, 1366]) {
+    it(`${width} px: the app name stays, the long name keeps its full text and a title, every control is still there`, async () => {
+      const bar = await openNarrow(width);
+      expect(bar.textContent).toContain(t('app.name'));
+      const nameEl = Array.from(bar.querySelectorAll('span')).find((el) => el.textContent === LONG_NAME);
+      expect(nameEl).toBeTruthy();
+      expect(nameEl?.getAttribute('title')).toBe(LONG_NAME);
+      expect(nameEl?.className).toContain('truncate');
+      expect(screen.getByRole('switch', { name: t('common.reduceMotion') })).toBeTruthy();
+      expect(bar.querySelector('[role="status"]')?.textContent).toContain(t('common.online'));
+      expect(screen.getByLabelText(t('common.language'))).toBeTruthy();
+      expect(screen.getByRole('button', { name: t('common.logout') })).toBeTruthy();
+    });
+  }
+
+  it('keeps the tab order: Reduce motion, language, Log out', async () => {
+    const bar = await openNarrow(1024);
+    const order = Array.from(bar.querySelectorAll('button, select')).map((el) => el.getAttribute('role') ?? el.tagName.toLowerCase());
+    expect(order).toEqual(['switch', 'select', 'button']);
+  });
+});

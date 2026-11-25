@@ -2,6 +2,15 @@
 
 Updated after every builder reply. The Planner keeps this file current from the Builder's Handoff blocks.
 
+## Part 15C-2a: top bar crowding
+- Known test fixes: checked in the zip, all three already present (login storage assertions, no `const ammeter` in `wiring-keyboard.test.tsx`, `waitFor` radiogroup check). Nothing re-applied.
+- New pure rule `src/ui/shell/topbar-layout.ts` (`topBarLayout`). Inputs: window width, text scale, user name, and the four label strings (app name, longer chip word, Reduce motion, Log out). Room is width divided by text scale (text zoom scales rem). It picks the first of three tiers whose estimated parts fit: roomy (design: nothing changes at 1366 and 100%), snug, tight. Tight: logo 40 to 32 px, app name 20 to 18 px (never hidden, never under 14), the chip and Reduce motion words wrap instead of clipping, side padding 12 px, user name capped at 5rem (10rem roomy, 7rem snug), language select 7rem, Log out padding 12 px. `use-topbar-metrics.ts` reads the window and the root font size; `TopBar` applies the result.
+- User name: the text is always the full name; CSS truncates it with an ellipsis and a native `title` shows it on hover. The project's Tooltip was not used: it opens upward and would run off the top of the window from this bar.
+- Language select has an explicit width (it used to size itself to the longest option, "Coming soon" included). Chip and switch keep icon and label; labels wrap (two lines), never clip. Header is `min-h-16` (64 px as designed) and `flex-wrap` as a last resort, so even an unfitting window wraps to a second row rather than overlap or scroll sideways.
+- Tab order unchanged: Reduce motion, language, Log out.
+- Tests: `tests/app/topbar-layout.test.ts` (rule at 1024, 1100, 1280, 1366 px, 100% and 125%, short and very long name), new cases in `tests/app/shell-controls.test.tsx`.
+- Verification: no `node_modules` and no network, so `npm run check`, Vitest and `vite build` were NOT run. Run: the pure rule under plain Node (every width, scale and name above fits; 1024 at 125% uses the tight tier), and a partial `tsc` with no packages installed (no unused-declaration errors; only missing-package errors). No browser check. The widths in the rule are estimates, not measured text.
+
 ## Part 15C-1: dock height and bench scale on short screens
 - Known test fixes: checked in the zip, all three already present (login storage assertions, no `const ammeter` in `wiring-keyboard.test.tsx`, `waitFor` radiogroup check). Nothing re-applied.
 - New pure rule `src/bench/layout.ts` (`benchLayout`, `openPanelWidth`, `textScaleOf`, constants). Inputs: viewport width and height, panel collapsed, text scale, and optionally the practice banner height and whether the dock has a footer. Outputs: dock mode (`full` or `compact`) and height, toolbar and status heights, panel width, bench box and bench scale. `use-bench-layout.ts` reads the window and `BenchView` applies the result to the dock, the bars and the panel.
