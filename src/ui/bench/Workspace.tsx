@@ -20,6 +20,7 @@ import type { FocusRequest } from './use-placement';
 import { useBenchActions } from './use-bench-actions';
 import { useElementSize } from './use-element-size';
 import { useFlagged } from './use-flagged';
+import { useHitAt, useWireHit } from './use-hit';
 import { useWiring } from './use-wiring';
 
 export interface WorkspaceProps {
@@ -64,7 +65,9 @@ export function Workspace({ experiment, svgRef, focusRequest, label }: Workspace
     return svg === null ? undefined : clientToBench(svg.getBoundingClientRect(), clientX, clientY);
   };
 
-  const wiring = useWiring(toBench);
+  const hitAt = useHitAt(svgRef);
+  const wiring = useWiring(toBench, hitAt);
+  const wireHit = useWireHit(svgRef, hitAt);
 
   const removeAndRefocus = (id: string) => {
     // Focus leaves the part before it disappears, so keyboard users are not dropped at the page top.
@@ -98,9 +101,16 @@ export function Workspace({ experiment, svgRef, focusRequest, label }: Workspace
         role="group"
         aria-label={label}
         className="absolute inset-0 h-full w-full touch-none select-none"
+        // A wire under the pointer shows the hand; parts and posts keep their own cursors.
+        style={wireHit.hoveredWireId === undefined ? undefined : { cursor: 'pointer' }}
         onPointerDownCapture={wiring.onPointerDownCapture}
-        onPointerDown={() => select(undefined)}
-        onPointerMove={wiring.onPointerMove}
+        onPointerDown={wireHit.onPointerDown}
+        onMouseDown={wireHit.onMouseDown}
+        onPointerMove={(event) => {
+          wiring.onPointerMove(event);
+          wireHit.onPointerMove(event);
+        }}
+        onPointerLeave={wireHit.onPointerLeave}
         onPointerUp={wiring.onPointerUp}
         onPointerCancel={wiring.onPointerCancel}
       >
@@ -160,8 +170,9 @@ export function Workspace({ experiment, svgRef, focusRequest, label }: Workspace
           />
         ))}
 
-        {/* Wires lie over the parts and under the terminals, so a post can always be reached. */}
-        <WireLayer scale={scale} onRemove={actions.removeWire} flagged={flagged} />
+        {/* Wires lie over the parts and under the terminals, so a post can always be reached. They are drawn here but picked by
+            `hitTest` (terminal, then part, then wire): a press the wire's wide band shares with a part or a post goes to that. */}
+        <WireLayer scale={scale} hoveredId={wireHit.hoveredWireId} onRemove={actions.removeWire} flagged={flagged} />
         <DrawingWire />
         {/* The text left on a part's picture lies over the wires so a wire never covers it. They let every press through,
             so wires stay selectable and the parts underneath stay draggable. Terminals are still drawn after. */}

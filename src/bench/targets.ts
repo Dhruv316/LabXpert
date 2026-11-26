@@ -33,3 +33,15 @@ export function trashRadius(scale: number): number {
   if (!(scale > 0)) return TRASH_BASE_RADIUS;
   return Math.max(TRASH_BASE_RADIUS, TARGET_MIN_PX / 2 / scale);
 }
+
+/** The click band of a wire, in screen px across (15C-3). Wires are thin, so the band is much wider than the drawn lead. */
+export const WIRE_HIT_MIN_PX = 32;
+
+/** The band the wire had before 15C-3, in design units across. It stays as the floor on a large bench, so no bench gets a narrower band than it had. */
+const WIRE_HIT_BASE_WIDTH = 22;
+
+/** Half the wire's click band in design units: 16 screen px each side at any bench scale, never under half the old 22 units. */
+export function wireHitHalfWidth(scale: number): number {
+  if (!(scale > 0)) return WIRE_HIT_BASE_WIDTH / 2;
+  return Math.max(WIRE_HIT_BASE_WIDTH / 2, WIRE_HIT_MIN_PX / 2 / scale);
+}

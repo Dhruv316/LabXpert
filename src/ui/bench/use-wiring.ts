@@ -8,6 +8,7 @@ import { useBenchStore } from '../../state';
 import { useCrash } from '../shell/use-crash';
 import { useAnnounce } from './announcer';
 import { terminalRefName } from './names';
+import type { HitAt } from './use-hit';
 
 /** A press that travels less than this (design units) is a click, not the start of a drag. */
 const DRAG_SLOP = 8;
@@ -23,7 +24,7 @@ interface PressState {
  * and `src/bench`; this only turns input into those actions and says what happened, by toast and
  * live region. The keyboard goes through the same `finish` and announcements as the pointer.
  */
-export function useWiring(toBench: (clientX: number, clientY: number) => Point | undefined) {
+export function useWiring(toBench: (clientX: number, clientY: number) => Point | undefined, hitAt: HitAt) {
   const announce = useAnnounce();
   const toast = useToast();
   const crash = useCrash();
@@ -76,19 +77,24 @@ export function useWiring(toBench: (clientX: number, clientY: number) => Point |
     return () => document.removeEventListener('keydown', onKey);
   }, [wiring, cancel]);
 
-  /** A press on a terminal with no wire in progress starts one (drag until it proves to be a click). */
+  /**
+   * A press on a terminal with no wire in progress starts one (drag until it proves to be a click). Where two press
+   * circles overlap, the browser gives the press to the one drawn last; `hitTest` gives it to the nearest post.
+   */
   const pressTerminal = useCallback(
-    (ref: TerminalRef, event: PointerEvent<SVGGElement>) => {
+    (pressed: TerminalRef, event: PointerEvent<SVGGElement>) => {
       if (event.button !== 0) return;
       // A press on a post is not a press on empty space, so it must not clear the selection.
       event.stopPropagation();
       if (useBenchStore.getState().drawing !== undefined) return;
+      const nearest = hitAt(event.clientX, event.clientY)?.target;
+      const ref = nearest?.kind === 'terminal' ? nearest.ref : pressed;
       if (!useBenchStore.getState().startWire(ref, 'drag')) return;
       press.current = { origin: toBench(event.clientX, event.clientY), moved: false };
       announce(t('bench.wireStarted', { terminal: nameOf(ref) }));
       event.currentTarget.setPointerCapture?.(event.pointerId);
     },
-    [announce, nameOf, toBench],
+    [announce, hitAt, nameOf, toBench],
   );
 
   /**
@@ -123,7 +129,10 @@ export function useWiring(toBench: (clientX: number, clientY: number) => Point |
     const point = toBench(event.clientX, event.clientY);
     // A press within snap range of a post counts as that post, so a wire never lands "near" one without joining.
     const pressed = onTerminal?.getAttribute('data-terminal-ref');
+    // The nearest post whose press circle holds the press comes first (hitTest), then the post pressed, then snap range.
+    const hit = hitAt(event.clientX, event.clientY)?.target;
     const ref =
+      (hit?.kind === 'terminal' ? hit.ref : undefined) ??
       allTerminals(circuit).find((candidate) => candidate.ref === pressed)?.ref ??
       (point === undefined ? undefined : nearestTerminal(circuit, point)?.ref);
     if (ref === undefined) {

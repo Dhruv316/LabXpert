@@ -10,6 +10,7 @@ import {
   parseTerminalRef,
   SNAP_RADIUS,
   terminalPosition,
+  wireCurve,
   wireGeometry,
   wirePath,
 } from '../../src/bench/wires';
@@ -207,5 +208,19 @@ describe('wire geometry', () => {
   });
   it('is undefined for a wire whose part is gone', () => {
     expect(wirePath(twoParts(), { id: 'w1', from: 'S.pos', to: 'Z.a' })).toBeUndefined();
+  });
+});
+
+describe('wireCurve', () => {
+  it('is the curve wireGeometry draws: same control points, and the midpoint is the curve at t = 0.5', () => {
+    const from = { x: 10, y: 20 };
+    const to = { x: 210, y: 120 };
+    const { c1, c2, drop } = wireCurve(from, to);
+    const g = wireGeometry(from, to);
+    const r = (n: number) => Math.round(n * 100) / 100;
+    expect(g.d).toBe(`M 10 20 C ${r(c1.x)} ${r(c1.y)}, ${r(c2.x)} ${r(c2.y)}, 210 120`);
+    expect(drop).toBeCloseTo(0.18 * g.length, 1);
+    expect(g.mid.x).toBeCloseTo((from.x + 3 * c1.x + 3 * c2.x + to.x) / 8, 1);
+    expect(g.mid.y).toBeCloseTo((from.y + 3 * c1.y + 3 * c2.y + to.y) / 8, 1);
   });
 });

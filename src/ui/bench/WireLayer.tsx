@@ -12,7 +12,6 @@ import type { Flagged } from './use-flagged';
 import { moveWireFocus } from './wire-focus';
 
 const { outlineWidth, fillWidth } = tokens.wire;
-const HIT_WIDTH = 22;
 
 interface WireViewProps {
   id: string;
@@ -21,6 +20,8 @@ interface WireViewProps {
   selected: boolean;
   /** Wires are one Tab stop (the others are reached with the arrow keys), so only one has tabIndex 0. */
   tabStop: boolean;
+  /** The pointer is on the wire's click band (decided by `hitTest`, since the band is not drawn): orange, as hover always was. */
+  hovered: boolean;
   /** The tutor flags this wire: `error` fill and a dashed pulsing outline, whatever else the wire is. */
   flagged: boolean;
   /** Restarts the single pulse when a new error is chosen. */
@@ -35,8 +36,12 @@ interface WireViewProps {
  * One wire (DESIGN §7): ink outline under a teal fill, orange on hover, orange with a dashed ink overlay when selected.
  * Flagged by the tutor it is `error`-filled inside a dashed `error` outline that pulses once; selected on top of that
  * keeps its dashed ink overlay and trash button, so both states can be read.
+ *
+ * Nothing in here takes a pointer press: a press is given to a wire by `hitTest` (terminal, then part, then wire), so the
+ * wire's wide click band never covers a part or a post. The element still has its own handlers for keyboard focus and for
+ * a plain click from assistive technology, which is sent to the element itself.
  */
-function WireView({ id, label, geometry, selected, tabStop, flagged, pulseKey, describedBy, onFocusWire, onRemove }: WireViewProps) {
+function WireView({ id, label, geometry, selected, tabStop, hovered, flagged, pulseKey, describedBy, onFocusWire, onRemove }: WireViewProps) {
   const select = useBenchStore((state) => state.selectWire);
   const reduced = useMotionReduced();
 
@@ -74,7 +79,7 @@ function WireView({ id, label, geometry, selected, tabStop, flagged, pulseKey, d
       data-wire-id={id}
       data-selected={selected}
       data-flagged={flagged}
-      className="group cursor-pointer outline-none"
+      className="group outline-none"
       onPointerDown={onPointerDown}
       // A plain click with no pointer events (assistive technology) selects too.
       onClick={() => select(id)}
@@ -101,7 +106,6 @@ function WireView({ id, label, geometry, selected, tabStop, flagged, pulseKey, d
         aria-hidden="true"
         className="pointer-events-none fill-none stroke-teal-deep opacity-0 group-focus-visible:opacity-100"
       />
-      <path d={geometry.d} strokeWidth={HIT_WIDTH} strokeLinecap="round" className="fill-none stroke-transparent" />
       <path d={geometry.d} strokeWidth={outlineWidth} strokeLinecap="round" className="pointer-events-none fill-none stroke-ink" />
       <path
         d={geometry.d}
@@ -109,7 +113,7 @@ function WireView({ id, label, geometry, selected, tabStop, flagged, pulseKey, d
         strokeLinecap="round"
         className={cn(
           'pointer-events-none fill-none',
-          flagged ? 'stroke-error' : selected ? 'stroke-orange' : 'stroke-teal group-hover:stroke-orange',
+          flagged ? 'stroke-error' : selected || hovered ? 'stroke-orange' : 'stroke-teal',
         )}
       />
       {selected && (
@@ -165,7 +169,18 @@ function WireTrash({ at, onRemove, id, scale }: { at: { x: number; y: number }; 
  * Every wire, drawn from where its two terminals are now, so a moved, nudged, undone or
  * reloaded part always has its wires attached. Positions are never stored on the wire.
  */
-export function WireLayer({ scale, onRemove, flagged }: { scale: number; onRemove: (id: string) => void; flagged: Flagged | undefined }) {
+export function WireLayer({
+  scale,
+  hoveredId,
+  onRemove,
+  flagged,
+}: {
+  scale: number;
+  /** The wire the pointer is on, if any. */
+  hoveredId: string | undefined;
+  onRemove: (id: string) => void;
+  flagged: Flagged | undefined;
+}) {
   const circuit = useBenchStore((state) => state.circuit);
   const selectedWireId = useBenchStore((state) => state.selectedWireId);
   const [lastFocused, setLastFocused] = useState<string | undefined>(undefined);
@@ -189,6 +204,7 @@ export function WireLayer({ scale, onRemove, flagged }: { scale: number; onRemov
           geometry={geometry}
           selected={wire.id === selectedWireId}
           tabStop={wire.id === stopId}
+          hovered={wire.id === hoveredId}
           flagged={flagged?.wireIds.has(wire.id) === true}
           pulseKey={flagged?.pulseKey ?? 0}
           describedBy={flagged?.descriptionId}

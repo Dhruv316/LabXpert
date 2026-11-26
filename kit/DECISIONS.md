@@ -332,3 +332,14 @@ When the user answers an open question, move it into a Locked section with the d
 | Text scale | The rule multiplies the bars and the dock by the root font size over 16 px (100% to 200%). At 125% the page can then be taller than the window and scroll, as `min-h-[34rem]` already allowed. |
 | Practice | The practice banner (about 80 px at 1024 px) is measured and passed in; the practice dock has no footer and is 120 px compact. At 1024 × 640 the practice bench scale is about 0.46, under the 0.55 asked for the experiment bench. |
 
+## Part 15C-3: wire click area and terminal targets (builder decisions)
+| Topic | Decision |
+|---|---|
+| Hit order | A press goes to a terminal first, then a part body, then a wire (`src/bench/hit.ts`). The wire's wide band therefore only takes presses nothing else wants. |
+| Approach | The wire's click area is not drawn in the page any more; the bench asks `hitTest` for a press that no part, terminal or control took. This keeps the part and terminal handlers as they were. Hover (orange) comes from the same question, so it covers the whole band. |
+| Band | 32 screen px across at any bench scale (16 px each side), and never narrower than the old 22 design units. Where the lead is drawn over a part, the part gets the press (part beats wire): the wire stays reachable on the mat and by keyboard. |
+| Overlapping wires | A press on the drawn lead beats a press only in another wire's band; inside each of those the wire drawn last (topmost) wins, every time. All wires stay reachable by Tab and arrow keys. |
+| Terminals | Press circles are unchanged in size (44 px across, capped at half the distance to the nearest post). Where circles overlap, the nearest post wins for a press and for the second click of click-click. Release snapping (`snapRadius`) is unchanged. |
+| Terminals under 44 px | A press circle stays under 44 px only where two posts are closer than 44 px: the ammeter and voltmeter posts (80 units apart) at a bench scale under 0.55 (40 px circles at 0.5). The strip between them still belongs to the two posts, with no gap. The circle cannot be bigger without covering the neighbouring post. |
+| Focus after a band press | The wire takes focus, as a press on the drawn lead did; the browser's own focus move to the bench frame is cancelled for that press. |
+

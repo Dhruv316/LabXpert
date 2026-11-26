@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { TARGET_MIN_PX, TRASH_BASE_RADIUS, terminalHitRadius, trashRadius } from '../../src/bench/targets';
+import { TARGET_MIN_PX, TRASH_BASE_RADIUS, WIRE_HIT_MIN_PX, terminalHitRadius, trashRadius, wireHitHalfWidth } from '../../src/bench/targets';
 import { allTerminals } from '../../src/bench/wires';
 import type { Circuit } from '../../src/model/types';
 import tokens from '../../src/spec/design-tokens.json';
@@ -72,5 +72,27 @@ describe('Press targets: the wire trash button', () => {
     expect(trashRadius(1)).toBe(22);
     expect(trashRadius(0.5) * 2 * 0.5).toBe(TARGET_MIN_PX);
     expect(trashRadius(0.25) * 2 * 0.25).toBe(TARGET_MIN_PX);
+  });
+});
+
+describe('Press targets: the wire click band', () => {
+  it('is 32 screen px across on a bench scaled down to 0.5, 0.6 or 1', () => {
+    expect(WIRE_HIT_MIN_PX).toBe(32);
+    for (const scale of [0.5, 0.6, 1]) expect(wireHitHalfWidth(scale) * 2 * scale).toBeCloseTo(WIRE_HIT_MIN_PX, 9);
+  });
+
+  it('grows in design units as the bench shrinks', () => {
+    expect(wireHitHalfWidth(0.5)).toBe(32);
+    expect(wireHitHalfWidth(0.25)).toBe(64);
+  });
+
+  it('never goes under the old 22-unit band, so a large bench keeps what it had', () => {
+    expect(wireHitHalfWidth(2)).toBe(11);
+    expect(wireHitHalfWidth(4)).toBe(11);
+  });
+
+  it('keeps the old band until the bench has a size', () => {
+    expect(wireHitHalfWidth(0)).toBe(11);
+    expect(wireHitHalfWidth(Number.NaN)).toBe(11);
   });
 });

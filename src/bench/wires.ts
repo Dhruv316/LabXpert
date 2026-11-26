@@ -185,17 +185,32 @@ export interface WireGeometry {
 
 const round = (n: number): number => Math.round(n * 100) / 100;
 
+/** The four points of a wire's cubic curve, and how far its two control points are pushed down. */
+export interface WireCurve {
+  from: Point;
+  c1: Point;
+  c2: Point;
+  to: Point;
+  drop: number;
+}
+
 /**
  * A lead lying on the mat: a cubic whose two control points sit a third and two thirds of the way
  * along, both pushed straight down by `sag` × the distance (DESIGN §7). SVG y grows downward, so
- * a positive push is "falling". The midpoint of such a curve is the straight midpoint plus
- * 0.75 × that push.
+ * a positive push is "falling". One place for the formula, so the drawn path and the hit test
+ * (`hit.ts`) can never disagree about where a wire is.
  */
-export function wireGeometry(from: Point, to: Point, sag: number = WIRE_SAG): WireGeometry {
-  const length = Math.hypot(to.x - from.x, to.y - from.y);
-  const drop = sag * length;
+export function wireCurve(from: Point, to: Point, sag: number = WIRE_SAG): WireCurve {
+  const drop = sag * Math.hypot(to.x - from.x, to.y - from.y);
   const c1 = { x: from.x + (to.x - from.x) / 3, y: from.y + (to.y - from.y) / 3 + drop };
   const c2 = { x: from.x + ((to.x - from.x) * 2) / 3, y: from.y + ((to.y - from.y) * 2) / 3 + drop };
+  return { from, c1, c2, to, drop };
+}
+
+/** The path for `wireCurve`. The midpoint of such a curve is the straight midpoint plus 0.75 × the push. */
+export function wireGeometry(from: Point, to: Point, sag: number = WIRE_SAG): WireGeometry {
+  const length = Math.hypot(to.x - from.x, to.y - from.y);
+  const { c1, c2, drop } = wireCurve(from, to, sag);
   const d = `M ${round(from.x)} ${round(from.y)} C ${round(c1.x)} ${round(c1.y)}, ${round(c2.x)} ${round(c2.y)}, ${round(to.x)} ${round(to.y)}`;
   const mid = { x: round((from.x + to.x) / 2), y: round((from.y + to.y) / 2 + 0.75 * drop) };
   return { d, mid, length: round(length) };
