@@ -7,6 +7,8 @@ import { sceneLayout } from './coords';
 export const LAYOUT = {
   topBar: 64,
   shelf: 200,
+  /** The shelf on a window narrower than `NARROW_WIDTH` (a tile's picture is 120 px, so tiles still fit). */
+  shelfNarrow: 176,
   /** The tutor panel open (UI_SCREENS §3) and its collapsed strip. */
   panelOpen: 360,
   panelStrip: 56,
@@ -36,6 +38,12 @@ export const PANEL_OPEN_MIN_SCALE = 0.5;
 export const DOCK_MIN_CONTROL_PX = 44;
 export const DOCK_MIN_TEXT_PX = 14;
 
+/** An effective window (CSS px, so browser zoom counts) narrower than this gets the narrow shelf and a smaller Ollie in the panel. */
+export const NARROW_WIDTH = 1024;
+
+/** The bench is never given less than this scale height-wise: a shorter window scrolls the page instead. */
+export const MIN_BENCH_SCALE = 0.5;
+
 export type DockMode = 'full' | 'compact';
 
 export interface LayoutInput {
@@ -48,6 +56,8 @@ export interface LayoutInput {
   bannerHeight?: number;
   /** False for a practice attempt: no answer box and no Finish button. */
   hasFooter?: boolean;
+  /** Rows the toolbar needs (`toolbarLayout` in toolbar-layout.ts), 1 when unknown. */
+  toolbarRows?: number;
 }
 
 export interface BenchLayout {
@@ -56,6 +66,16 @@ export interface BenchLayout {
   toolbarHeight: number;
   statusHeight: number;
   panelWidth: number;
+  shelfWidth: number;
+  /** Window narrower than `NARROW_WIDTH`. */
+  narrow: boolean;
+  /** Height the screen below the top bar must have at least; a window shorter than that scrolls the page vertically. */
+  containerMinHeight: number;
+  pageScrolls: boolean;
+  /** Ollie in the open panel: 96 px, or 56 px on a short or narrow window so the panel's steps keep room. */
+  panelOllie: number;
+  /** True above 100% text: the shelf's ×N badge gets its own row so it cannot cover a picture. */
+  shelfBadgeClear: boolean;
   /** The box the bench scene is fitted into (between the toolbar and the status strip). */
   bench: { width: number; height: number };
   /** Screen px per design unit. */
@@ -70,8 +90,8 @@ export function textScaleOf(rootFontPx: number): number {
 }
 
 /** The open panel is as wide as the design says (360 px) while the bench keeps scale 0.5, and narrows to 264 px before it takes more. */
-export function openPanelWidth(viewportWidth: number): number {
-  const keepBench = viewportWidth - LAYOUT.shelf - BENCH_VIEW.width * PANEL_OPEN_MIN_SCALE;
+export function openPanelWidth(viewportWidth: number, shelfWidth: number = LAYOUT.shelf): number {
+  const keepBench = viewportWidth - shelfWidth - BENCH_VIEW.width * PANEL_OPEN_MIN_SCALE;
   return Math.round(clamp(keepBench, LAYOUT.panelNarrowest, LAYOUT.panelOpen));
 }
 
@@ -83,22 +103,46 @@ export function benchLayout(input: LayoutInput): BenchLayout {
   const text = clamp(input.textScale, 1, 2);
   const px = (value: number): number => Math.round(value * text);
 
-  const container = Math.max(viewportHeight - px(LAYOUT.topBar), px(LAYOUT.minContainer));
-  const below = container - banner;
+  const rows = Math.max(1, Math.round(input.toolbarRows ?? 1));
+  const narrow = viewportWidth < NARROW_WIDTH;
+  const shelfWidth = narrow ? LAYOUT.shelfNarrow : LAYOUT.shelf;
+
+  // Height available below the top bar before the page-scroll floor is applied; the floor itself needs the bars, so it is set below.
+  const room = viewportHeight - px(LAYOUT.topBar) - banner;
 
   // The full dock stays while the bench keeps a good size with it; otherwise the compact dock and tighter bars take over.
-  const fullBench = below - px(LAYOUT.toolbar) - px(LAYOUT.status) - px(LAYOUT.dockFull);
+  const fullBench = Math.max(room, px(LAYOUT.minContainer) - banner) - rows * px(LAYOUT.toolbar) - px(LAYOUT.status) - px(LAYOUT.dockFull);
   const compact = fullBench < FULL_DOCK_MIN_SCALE * BENCH_VIEW.height;
   const dockHeight = px(compact ? (hasFooter ? LAYOUT.dockCompact : LAYOUT.dockCompactNoFooter) : LAYOUT.dockFull);
-  const toolbarHeight = px(compact ? LAYOUT.toolbarCompact : LAYOUT.toolbar);
+  const toolbarHeight = rows * px(compact ? LAYOUT.toolbarCompact : LAYOUT.toolbar);
   const statusHeight = px(compact ? LAYOUT.statusCompact : LAYOUT.status);
 
-  const panelWidth = panelCollapsed ? LAYOUT.panelStrip : openPanelWidth(viewportWidth);
+  // The bench keeps at least MIN_BENCH_SCALE: when the window is too short for that, the screen is taller than the window and the page scrolls.
+  const needed = banner + toolbarHeight + statusHeight + dockHeight + Math.ceil(BENCH_VIEW.height * MIN_BENCH_SCALE);
+  const containerMinHeight = Math.max(px(LAYOUT.minContainer), needed);
+  const container = Math.max(viewportHeight - px(LAYOUT.topBar), containerMinHeight);
+  const below = container - banner;
+
+  const panelWidth = panelCollapsed ? LAYOUT.panelStrip : openPanelWidth(viewportWidth, shelfWidth);
   const bench = {
-    width: Math.max(0, viewportWidth - LAYOUT.shelf - panelWidth),
+    width: Math.max(0, viewportWidth - shelfWidth - panelWidth),
     height: Math.max(0, below - toolbarHeight - statusHeight - dockHeight),
   };
   const scale = sceneLayout(bench.width, bench.height)?.scale ?? 0;
 
-  return { dockMode: compact ? 'compact' : 'full', dockHeight, toolbarHeight, statusHeight, panelWidth, bench, scale };
+  return {
+    dockMode: compact ? 'compact' : 'full',
+    dockHeight,
+    toolbarHeight,
+    statusHeight,
+    panelWidth,
+    shelfWidth,
+    narrow,
+    containerMinHeight,
+    pageScrolls: container + px(LAYOUT.topBar) > viewportHeight,
+    panelOllie: compact || narrow ? 56 : 96,
+    shelfBadgeClear: text > 1,
+    bench,
+    scale,
+  };
 }

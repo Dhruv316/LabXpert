@@ -29,14 +29,14 @@ function ErrorCard({ result, headingRef }: { result: RuleResult; headingRef: Ref
       <h3 ref={headingRef} tabIndex={-1} className={`font-heading text-xl font-semibold leading-7 text-ink ${FOCUS_RING}`}>
         {entry.title}
       </h3>
-      <p className="mt-2 font-body text-base leading-[26px] text-ink">{entry.explain}</p>
+      <p className="mt-2 font-body text-base leading-[1.625rem] text-ink">{entry.explain}</p>
       {entry.fix !== undefined && (
         <div className="mt-4 rounded-control border-l-4 border-teal bg-teal-tint p-3" data-testid="how-to-fix">
           <p className="flex items-center gap-2 font-heading text-base font-semibold leading-6 text-ink">
             <Icon icon={Wrench} className="shrink-0 text-teal-deep" />
             {t('bench.howToFix')}
           </p>
-          <p className="mt-1 font-body text-base leading-[26px] text-ink">{entry.fix}</p>
+          <p className="mt-1 font-body text-base leading-[1.625rem] text-ink">{entry.fix}</p>
         </div>
       )}
     </Bubble>

@@ -36,7 +36,7 @@ export function BenchView({ experiment, title, banner }: BenchViewProps) {
   const panelCollapsed = useTutorStore((state) => state.panelCollapsed);
   const hasFooter = useBenchStore((state) => (state.session?.kind ?? 'experiment') === 'experiment');
   // Dock height, panel width and bar heights for this window (src/bench/layout.ts).
-  const layout = useBenchLayout({ panelCollapsed, bannerHeight: bannerSize?.height ?? 0, hasFooter });
+  const { layout, toolbar } = useBenchLayout({ panelCollapsed, bannerHeight: bannerSize?.height ?? 0, hasFooter });
   const compact = layout.dockMode === 'compact';
 
   // Every visit starts the panel the way the window width says (open, or collapsed below 1200 px). Before paint, so it never flashes open.
@@ -49,21 +49,25 @@ export function BenchView({ experiment, title, banner }: BenchViewProps) {
 
   return (
     <AnnouncerProvider>
-      <div className="flex h-[calc(100vh-4rem)] min-h-[34rem] min-w-0 flex-col overflow-hidden">
+      <div
+        data-page-scrolls={layout.pageScrolls}
+        style={{ minHeight: layout.containerMinHeight }}
+        className="flex h-[calc(100vh-4rem)] min-w-0 flex-col overflow-hidden"
+      >
         {banner !== undefined && (
           <div ref={bannerRef} className="shrink-0">
             {banner}
           </div>
         )}
         <div className="flex min-h-0 min-w-0 flex-1 overflow-hidden">
-          <Shelf experiment={experiment} onPlace={placeNext} onDrop={dropAt} />
+          <Shelf experiment={experiment} onPlace={placeNext} onDrop={dropAt} width={layout.shelfWidth} badgeClear={layout.shelfBadgeClear} />
           <main className="flex min-w-0 flex-1 flex-col">
-            <BenchToolbar compact={compact} />
+            <BenchToolbar compact={compact} tight={toolbar.tight} />
             <Workspace experiment={experiment} svgRef={svgRef} focusRequest={focusRequest} label={title} />
             <StatusStrip compact={compact} />
             <Dock experiment={experiment} mode={layout.dockMode} height={layout.dockHeight} />
           </main>
-          <TutorPanel experiment={experiment} width={layout.panelWidth} />
+          <TutorPanel experiment={experiment} width={layout.panelWidth} ollieSize={layout.panelOllie} />
         </div>
       </div>
     </AnnouncerProvider>

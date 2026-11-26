@@ -57,7 +57,8 @@ export function Dock({ experiment, mode = 'full', height = LAYOUT.dockFull }: Do
     <div
       data-dock
       data-dock-mode={mode}
-      style={compact ? { height } : undefined}
+      // The design's 220 px is a class; above 100% text the layout rule gives a taller dock, which wins as an inline height.
+      style={compact || height !== LAYOUT.dockFull ? { height } : undefined}
       className={cn(
         'grid shrink-0 border-t-4 border-wood bg-mat',
         compact
@@ -83,7 +84,7 @@ export function Dock({ experiment, mode = 'full', height = LAYOUT.dockFull }: Do
           data-dock-footer
           className={cn(
             !compact && 'col-span-2 flex items-start justify-between gap-3',
-            compact && needsAnswer && 'grid min-h-0 min-w-0 grid-cols-[14rem_auto_minmax(0,1fr)] grid-rows-[auto_minmax(44px,auto)] content-start gap-x-2 gap-y-1',
+            compact && needsAnswer && 'grid min-h-0 min-w-0 grid-cols-[minmax(7rem,14rem)_auto_minmax(0,1fr)] grid-rows-[auto_minmax(44px,auto)] content-start gap-x-2 gap-y-1',
             compact && !needsAnswer && 'flex min-w-0 items-center justify-end',
           )}
         >

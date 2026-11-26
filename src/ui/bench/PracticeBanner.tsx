@@ -33,7 +33,7 @@ export function PracticeBanner({ practice }: { practice: PracticeCurrent }) {
     >
       <Ollie mood="happy" size={48} decorative className="shrink-0" />
       <div className="min-w-0 basis-72 xl:basis-[28rem]">
-        <h1 id="practice-title" className="font-heading text-xl font-semibold leading-7 text-ink">
+        <h1 id="practice-title" className="break-words font-heading text-xl font-semibold leading-7 text-ink">
           {practiceTitle(task)}
         </h1>
         <p className="font-body text-sm leading-5 text-ink-soft">{practiceBannerText(task, forCode)}</p>

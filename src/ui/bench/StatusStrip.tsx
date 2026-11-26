@@ -14,7 +14,7 @@ export function StatusStrip({ compact = false }: { compact?: boolean }) {
     <div
       data-testid="bench-status"
       className={cn(
-        'flex shrink-0 flex-wrap items-center gap-x-6 gap-y-1 border-t-2 border-wood-light px-4 font-body text-sm font-bold text-ink',
+        'flex min-w-0 shrink-0 flex-wrap items-center gap-x-6 gap-y-1 border-t-2 border-wood-light px-4 font-body text-sm font-bold text-ink',
         compact ? 'min-h-[30px] py-0.5' : 'min-h-[40px] py-1',
       )}
     >

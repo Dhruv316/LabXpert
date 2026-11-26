@@ -18,6 +18,7 @@ export interface TutorPanelProps {
 /** The open panel's border (`border-l-4`): the content is this much narrower than the panel. */
 const PANEL_BORDER_PX = 4;
 const OPEN_PANEL_PX = LAYOUT.panelOpen;
+const OPEN_OLLIE_PX = 96;
 
 /** Before the first check: Ollie's line, then the current task's steps (numbering means something here: it is a sequence). A practice run shows its goal instead. */
 function Instructions({ experiment }: TutorPanelProps) {
@@ -27,7 +28,7 @@ function Instructions({ experiment }: TutorPanelProps) {
   if (practice !== undefined) {
     return (
       <Bubble>
-        <p data-testid="practice-goal-panel" className="font-body text-base leading-[26px] text-ink">
+        <p data-testid="practice-goal-panel" className="font-body text-base leading-[1.625rem] text-ink">
           {practiceGoal(practice.task)}
         </p>
       </Bubble>
@@ -37,9 +38,9 @@ function Instructions({ experiment }: TutorPanelProps) {
   return (
     <>
       <Bubble>
-        <p className="font-body text-base leading-[26px] text-ink">{t('bench.panelEmpty')}</p>
+        <p className="font-body text-base leading-[1.625rem] text-ink">{t('bench.panelEmpty')}</p>
       </Bubble>
-      <ol className="list-decimal space-y-2 pl-6 font-body text-base leading-[26px] text-ink">
+      <ol className="list-decimal space-y-2 pl-6 font-body text-base leading-[1.625rem] text-ink">
         {steps.map((step) => (
           <li key={step} className="pl-1">
             {step}
@@ -55,7 +56,7 @@ function Instructions({ experiment }: TutorPanelProps) {
  * lives in the tutor store, so a checkpoint can reopen it. The width change is one 220 ms slide,
  * which the reduced-motion rules in index.css remove.
  */
-export function TutorPanel({ experiment, width = OPEN_PANEL_PX }: TutorPanelProps & { width?: number }) {
+export function TutorPanel({ experiment, width = OPEN_PANEL_PX, ollieSize = OPEN_OLLIE_PX }: TutorPanelProps & { width?: number; ollieSize?: number }) {
   const collapsed = useTutorStore((state) => state.panelCollapsed);
   const setCollapsed = useTutorStore((state) => state.setPanelCollapsed);
   const status = useTutorStore((state) => state.status);
@@ -112,16 +113,16 @@ export function TutorPanel({ experiment, width = OPEN_PANEL_PX }: TutorPanelProp
           </div>
         </div>
       ) : (
-        <div
-          className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto overflow-x-hidden p-4"
-          style={{ width: width - PANEL_BORDER_PX }}
-        >
-          <div className="flex items-start gap-3">
-            <Ollie mood={mood} size={96} decorative />
-            <h2 className="min-w-0 flex-1 font-heading text-xl font-semibold leading-7 text-ink">{t('bench.panelTitle')}</h2>
+        <div className="flex min-h-0 flex-1 flex-col" style={{ width: width - PANEL_BORDER_PX }}>
+          {/* The header stays put (the hide button is always reachable); only the tips below it scroll. */}
+          <div className="flex shrink-0 items-start gap-3 p-4 pb-2">
+            <Ollie mood={mood} size={ollieSize} decorative />
+            <h2 className="min-w-0 flex-1 break-words font-heading text-xl font-semibold leading-7 text-ink">{t('bench.panelTitle')}</h2>
             <IconButton ref={toggleRef} icon={PanelRightClose} label={t('bench.hidePanel')} onClick={toggle} />
           </div>
-          {status === 'instructions' ? <Instructions experiment={experiment} /> : <TutorResults />}
+          <div data-panel-body className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto overflow-x-hidden p-4 pt-2">
+            {status === 'instructions' ? <Instructions experiment={experiment} /> : <TutorResults />}
+          </div>
         </div>
       )}
     </aside>

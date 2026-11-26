@@ -21,9 +21,9 @@ export interface AnswerBoxProps {
   compact?: boolean;
 }
 
-// Compact cells of the footer grid (14rem, auto, 1fr): the field above-left, Check at its right, the verdict under the field.
+// Compact cells of the footer grid (7rem to 14rem, auto, 1fr): the field above-left, Check at its right, the verdict under the field.
 const COMPACT_FIELD = 'col-start-1 row-start-1 [&_input]:h-11 [&_label]:leading-5';
-const COMPACT_CHECK = 'col-start-2 row-start-1 mt-6 shrink-0 !min-h-[44px] !px-4';
+const COMPACT_CHECK = 'col-start-2 row-start-1 shrink-0 self-end !min-h-[44px] !px-4';
 const COMPACT_RESULT = 'col-start-1 row-start-2 flex min-w-0 flex-col justify-center font-body text-sm font-semibold leading-[18px] text-ink';
 
 /** The title line of a feedback entry, or undefined when the task has no such wording. */
@@ -86,7 +86,7 @@ export function AnswerBox({ experiment, taskId, readings, compact = false }: Ans
 
   return (
     <div data-answer-box className={compact ? 'contents' : 'flex min-w-0 items-start gap-3'}>
-      <div className={compact ? COMPACT_FIELD : 'w-56 shrink-0'}>
+      <div className={compact ? COMPACT_FIELD : 'w-72 shrink-0'}>
         <Field
           ref={inputRef}
           label={t('bench.equivalentLabel')}

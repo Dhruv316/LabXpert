@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
-import { benchLayout, textScaleOf, type BenchLayout } from '../../bench/layout';
+import { textScaleOf } from '../../bench/layout';
+import { fitBenchLayout, type FittedLayout } from '../../bench/toolbar-layout';
+import { t } from '../../i18n';
 
 interface Viewport {
   width: number;
@@ -36,8 +38,11 @@ export interface BenchLayoutOptions {
   hasFooter: boolean;
 }
 
-/** The bench screen's layout for the current window (see `src/bench/layout.ts`). */
-export function useBenchLayout({ panelCollapsed, bannerHeight, hasFooter }: BenchLayoutOptions): BenchLayout {
+/** The bench screen's layout (and the toolbar's tier) for the current window (see `src/bench/layout.ts`). */
+export function useBenchLayout({ panelCollapsed, bannerHeight, hasFooter }: BenchLayoutOptions): FittedLayout {
   const { width, height, textScale } = useViewport();
-  return benchLayout({ viewportWidth: width, viewportHeight: height, panelCollapsed, textScale, bannerHeight, hasFooter });
+  // The longest the toolbar's counters read: three digits is more than any experiment or practice run needs.
+  const counter = [t('bench.taskProgress', { current: 3, total: 3 }), t('practice.progress', { have: 3, need: 3 })].reduce((a, b) => (b.length > a.length ? b : a));
+  const labels = { undo: t('bench.undo'), reset: t('bench.reset'), remove: t('bench.deleteSelected'), counter };
+  return fitBenchLayout({ viewportWidth: width, viewportHeight: height, panelCollapsed, textScale, bannerHeight, hasFooter }, labels);
 }

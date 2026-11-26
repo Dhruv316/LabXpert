@@ -1,5 +1,6 @@
 import { useId, type PointerEvent as ReactPointerEvent } from 'react';
 import { Check, X } from 'lucide-react';
+import { LAYOUT } from '../../bench/layout';
 import { shelfStatus, type ShelfStatus } from '../../bench/ops';
 import { Icon, cn } from '../../components/ui';
 import { DISABLED_LOOK, FOCUS_RING } from '../../components/ui/styles';
@@ -18,6 +19,10 @@ export interface ShelfProps {
   onPlace: (type: ComponentType) => void;
   /** A tile released at this screen position. */
   onDrop: (type: ComponentType, clientX: number, clientY: number) => void;
+  /** The shelf's width in px (src/bench/layout.ts): 200, or narrower on a narrow window. */
+  width?: number;
+  /** Above 100% text the ×N badge sits in its own row above the picture instead of over its corner. */
+  badgeClear?: boolean;
 }
 
 interface TileProps {
@@ -28,9 +33,10 @@ interface TileProps {
   onPress: (type: ComponentType, event: ReactPointerEvent) => void;
   /** True when this click only ends a drag. */
   consumeDrag: () => boolean;
+  badgeClear: boolean;
 }
 
-function ShelfTile({ item, status, experiment, onPlace, onPress, consumeDrag }: TileProps) {
+function ShelfTile({ item, status, experiment, onPlace, onPress, consumeDrag, badgeClear }: TileProps) {
   const look = shelfLook(item, experiment);
   return (
     <button
@@ -52,7 +58,8 @@ function ShelfTile({ item, status, experiment, onPlace, onPress, consumeDrag }: 
         if (event.key === ' ') event.preventDefault();
       }}
       className={cn(
-        'relative flex w-full touch-none select-none flex-col items-center gap-1 rounded-card border-2 p-3',
+        'relative flex w-full min-w-0 touch-none select-none flex-col items-center gap-1 rounded-card border-2 p-3',
+        badgeClear && 'pt-9',
         'font-body font-bold text-ink transition-[transform,box-shadow] duration-fast ease-bouncy',
         FOCUS_RING,
         status.full
@@ -62,7 +69,7 @@ function ShelfTile({ item, status, experiment, onPlace, onPress, consumeDrag }: 
     >
       <span className={cn('flex flex-col items-center gap-1', status.full && DISABLED_LOOK)}>
         <PartArt look={look} scale={TILE_SCALE} />
-        <span className="font-heading font-medium first-letter:uppercase">{t(`components.${item.type}`)}</span>
+        <span className="min-w-0 max-w-full break-words font-heading font-medium first-letter:uppercase">{t(`components.${item.type}`)}</span>
       </span>
       {/* The × is an icon so no text literal sits in the markup; the number is the shelf's `max`. */}
       <span
@@ -83,7 +90,7 @@ function ShelfTile({ item, status, experiment, onPlace, onPress, consumeDrag }: 
 }
 
 /** The parts shelf (UI_SCREENS §3): one tile per allowed part, drag to place, or tap or press Enter for the next free spot. */
-export function Shelf({ experiment, onPlace, onDrop }: ShelfProps) {
+export function Shelf({ experiment, onPlace, onDrop, width = LAYOUT.shelf, badgeClear = false }: ShelfProps) {
   const titleId = useId();
   const circuit = useBenchStore((state) => state.circuit);
   const { ghost, begin, consumeDrag } = useShelfDrag(onDrop);
@@ -93,13 +100,14 @@ export function Shelf({ experiment, onPlace, onDrop }: ShelfProps) {
   return (
     <aside
       aria-labelledby={titleId}
-      className="flex w-[200px] shrink-0 flex-col gap-3 overflow-y-auto border-r-4 border-wood-light bg-cream p-3"
+      style={{ width }}
+      className="flex shrink-0 flex-col gap-3 overflow-y-auto overflow-x-hidden border-r-4 border-wood-light bg-cream p-3"
     >
       <div className="flex flex-col gap-1">
-        <h2 id={titleId} className="font-heading text-xl font-semibold leading-7">
+        <h2 id={titleId} className="break-words font-heading text-xl font-semibold leading-7">
           {t('bench.shelfTitle')}
         </h2>
-        <p className="text-sm font-semibold text-ink-soft">{t('bench.shelfHint')}</p>
+        <p className="break-words text-sm font-semibold text-ink-soft">{t('bench.shelfHint')}</p>
       </div>
       <ul className="flex flex-col gap-3">
         {experiment.shelf.map((item, index) => {
@@ -107,7 +115,7 @@ export function Shelf({ experiment, onPlace, onDrop }: ShelfProps) {
           if (status === undefined) return null;
           return (
             <li key={item.type}>
-              <ShelfTile item={item} status={status} experiment={experiment} onPlace={onPlace} onPress={begin} consumeDrag={consumeDrag} />
+              <ShelfTile item={item} status={status} experiment={experiment} onPlace={onPlace} onPress={begin} consumeDrag={consumeDrag} badgeClear={badgeClear} />
             </li>
           );
         })}

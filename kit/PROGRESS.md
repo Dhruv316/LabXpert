@@ -2,6 +2,15 @@
 
 Updated after every builder reply. The Planner keeps this file current from the Builder's Handoff blocks.
 
+## Part 15C-2b: 125% text scale and browser zoom on the bench screen
+- Known test fixes: checked in the zip, all three already present (login storage assertions, no `const ammeter` in `wiring-keyboard.test.tsx`, `waitFor` radiogroup check). Nothing re-applied.
+- Pure rules (`src/bench/layout.ts`, new `src/bench/toolbar-layout.ts`): `shelfWidth` (200 px, 176 px when the effective window is under 1024 px wide), `containerMinHeight` and `pageScrolls` (the bench keeps a scale of at least 0.5 height-wise, so a window too short for that scrolls the page vertically; the practice banner counts), `toolbarLayout` / `fitBenchLayout` (the toolbar's worst case, with Remove and the counter, fits one roomy row, one tight row (button padding 24 to 12 px) or needs two rows, which the layout counts), `panelOllie` (96 px, 56 px on a short or narrow window), `shelfBadgeClear` (above 100% text).
+- UI: the tutor panel's header (Ollie, title, hide button) no longer scrolls away; only the tips scroll (`data-panel-body`). Panel line heights are rem (1.625rem) instead of 26 px. Shelf takes its width from the rule, wraps long words, and above 100% text the x-N badge gets its own row. The bench screen's minimum height comes from the rule (inline) instead of `min-h-[34rem]`. The full dock's height follows the rule above 100% text (the 220 px class stays at 100%). Compact answer box: the field column is 7 to 14 rem wide (it used to be a fixed 14 rem and overflowed at 1024 px with the panel open) and Check lines up with the input's bottom whatever the label's line count. The full dock's answer field is 18 rem (was 14), so its label stays on one line at 125% text.
+- Tab order, text from `t()`, reduce motion: unchanged. No engine, tracking, readings, checkpoint or practice change.
+- Bench scale from the rule (CSS px per design unit; panel collapsed / open): 1366 x 768 at 125% text 0.639 / 0.639 (compact dock); zoom 125% (1093 x 614) 0.511 / 0.500; zoom 150% (911 x 512) 0.502 / 0.428, page scrolls vertically, narrow shelf. On the screen that is 0.64 / 0.62 (125% zoom) and 0.75 / 0.64 (150% zoom), larger than the 0.599 of the 100% window.
+- Tests: new blocks in `tests/bench/layout.test.ts` (125% text at 1366 x 768 and 1024 x 640, both zoom viewports, toolbar rows, scroll floor, minimum sizes); the old banner test now also covers the scroll floor.
+- Verification: no `node_modules` and no network, so `npm run check`, Vitest and `vite build` were NOT run. `tests/bench/layout.test.ts` ran (31 of 31) under a small stand-in for Vitest against the real source; a partial `tsc` over the changed files reported no unused declarations (other errors are missing-package types). No browser check, and the toolbar width estimate is a character-count estimate, not measured text.
+
 ## Part 15C-2a: top bar crowding
 - Known test fixes: checked in the zip, all three already present (login storage assertions, no `const ammeter` in `wiring-keyboard.test.tsx`, `waitFor` radiogroup check). Nothing re-applied.
 - New pure rule `src/ui/shell/topbar-layout.ts` (`topBarLayout`). Inputs: window width, text scale, user name, and the four label strings (app name, longer chip word, Reduce motion, Log out). Room is width divided by text scale (text zoom scales rem). It picks the first of three tiers whose estimated parts fit: roomy (design: nothing changes at 1366 and 100%), snug, tight. Tight: logo 40 to 32 px, app name 20 to 18 px (never hidden, never under 14), the chip and Reduce motion words wrap instead of clipping, side padding 12 px, user name capped at 5rem (10rem roomy, 7rem snug), language select 7rem, Log out padding 12 px. `use-topbar-metrics.ts` reads the window and the root font size; `TopBar` applies the result.
@@ -239,6 +248,8 @@ Parts 1 to 8 are done and verified by the user on a real machine (`npm install &
 States: `not started`, `in progress`, `done and tested`, `done, untested`, `blocked`.
 
 ## Last handoff
+Part 15C-2b: 125% text and browser zoom on the bench screen. See the Part 15C-2b section above. Vitest and `npm run check` were NOT run (no network).
+
 Part 15C-1: dock height and bench scale on short screens. See the Part 15C-1 section above. Vitest and `npm run check` were NOT run (no network).
 
 Part 15B-3b: hard-coded text sweep and language readiness. See the Part 15B-3b section above. Vitest and `npm run check` were NOT run (no network).
